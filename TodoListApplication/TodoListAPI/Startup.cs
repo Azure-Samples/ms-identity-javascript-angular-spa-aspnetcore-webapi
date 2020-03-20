@@ -1,22 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
-using Microsoft.IdentityModel.Tokens;
+using TodoListAPI.Models;
 
 namespace TodoListAPI
 {
@@ -41,19 +31,15 @@ namespace TodoListAPI
 
             services.AddProtectWebApiWithMicrosoftIdentityPlatformV2(Configuration);
 
-            services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
-            {
-                // options.TokenValidationParameters.RoleClaimType = "roles";   
-            });
-
             // Creating policies that wraps the authorization requirements
-            services.AddAuthorization(options =>
-            {
-                // options.AddPolicy("DaemonAppRole", policy => policy.RequireRole("DaemonAppRole"));
-            });
+            services.AddAuthorization();
+
+            services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
 
             services.AddControllers();
-            services.AddCors(o => o.AddPolicy("myPolicy", builder =>
+            
+            // Allowing all domains and methods for the purpose of sample
+            services.AddCors(o => o.AddPolicy("default", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
@@ -78,12 +64,11 @@ namespace TodoListAPI
                 app.UseHsts();
             }
 
-            app.UseCors("myPolicy");
+            app.UseCors("default");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -1,45 +1,134 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Web.Resource;
-using System.Collections.Concurrent;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using TodoListAPI.Models;
+using System.Security.Claims;
+using Microsoft.Identity.Web.Resource;
 
 namespace TodoListAPI.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
-    public class TodoListController : Controller
+    [ApiController]
+    public class TodoListController : ControllerBase
     {
-        static readonly ConcurrentBag<TodoItem> TodoStore = new ConcurrentBag<TodoItem>();
-
         /// <summary>
         /// The Web API will only accept tokens 1) for users, and 
         /// 2) having the access_as_user scope for this API
         /// </summary>
         static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<TodoItem> Get()
+        private readonly TodoContext _context;
+
+        public TodoListController(TodoContext context)
         {
-            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
-            string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            return TodoStore.Where(t => t.Owner == owner).ToList();
+            _context = context;
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]TodoItem todo)
+        // GET: api/TodoItems
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            TodoStore.Add(new TodoItem { Owner = owner, Title = todo.Title });
+            return await _context.TodoItems.Where(item => item.Owner == owner).ToListAsync();
+        }
+
+        // GET: api/TodoItems/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TodoItem>> GetTodoItem(int id)
+        {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+ 
+            var todoItem = await _context.TodoItems.FindAsync(id);
+
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+
+            return todoItem;
+        }
+
+        // PUT: api/TodoItems/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutTodoItem(int id, TodoItem todoItem)
+        {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+
+            if (id != todoItem.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(todoItem).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TodoItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/TodoItems
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPost]
+        public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
+        {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+            string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            todoItem.Owner = owner;
+
+            var random = new Random();
+            todoItem.Id = random.Next();
+
+            _context.TodoItems.Add(todoItem);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+        }
+
+        // DELETE: api/TodoItems/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TodoItem>> DeleteTodoItem(int id)
+        {
+            HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
+
+            var todoItem = await _context.TodoItems.FindAsync(id);
+            if (todoItem == null)
+            {
+                return NotFound();
+            }
+
+            _context.TodoItems.Remove(todoItem);
+            await _context.SaveChangesAsync();
+
+            return todoItem;
+        }
+
+        private bool TodoItemExists(int id)
+        {
+            return _context.TodoItems.Any(e => e.Id == id);
         }
     }
 }
