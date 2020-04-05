@@ -1,0 +1,88 @@
+{
+    "Sample": {
+      "Title": "A Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API",
+      "Level": 200,
+      "Client": "TodoListSPA",
+      "Service": "TodoListAPI",
+      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnetcore-webapi",
+      "Endpoint": "AAD v2.0"
+    },
+    "AADApps": [
+      {
+        "Id": "service",
+        "Name": "TodoListAPI",
+        "Kind": "WebApi",
+        "Audience": "AzureADandPersonalMicrosoftAccount",
+        "HomePage": "https://localhost:44351/api/todolist"
+       
+      },
+      {
+        "Id": "client",
+        "Name": "TodoListSPA",
+        "Kind": "SinglePageApplication",
+        "Audience": "AzureADandPersonalMicrosoftAccount",
+        "HomePage": "http://localhost:4200",
+        "ReplyUrls": "http://localhost:4200",
+        "LogoutUrl": "http://localhost:4200",
+        "RequiredResourcesAccess": [
+          {
+            "Resource": "service",
+            "DelegatedPermissions": [ "access_as_user" ]
+          }
+        ]
+      }
+    ],
+    "CodeConfiguration": [
+      {
+        "App": "service",
+        "SettingKind": "Text",
+        "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\appsettings.json",
+        "Mappings": [
+          {
+            "key": "Instance",
+            "value": "https://login.microsoftonline.com/"
+          },
+          {
+            "key": "Domain",
+            "value": "$tenantName"
+          },
+          {
+            "key": "TenantId",
+            "value": "$tenantId"
+          },
+          {
+            "key": "ClientId",
+            "value": "service.AppId"
+          }
+        ]
+      },
+  
+      {
+        "App": "client",
+        "SettingKind": "Text",
+        "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\src\\app\\app-config.ts",
+        "Mappings": [
+          {
+            "key": "Authority",
+            "value": "https://login.microsoftonline.com/common/"
+          },
+          {
+            "key": "ClientId",
+            "value": ".AppId"
+          },
+          {
+            "key": "ReturnUri",
+            "value": "client.HomePage"
+          },
+          {
+            "key": "webApi",
+            "value": "service.HomePage"
+          },
+          {
+            "key": "scopes",
+            "value": "service.Scope"
+          }
+        ]
+      }
+    ]
+  }
