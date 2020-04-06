@@ -218,7 +218,7 @@ Open the project in your IDE  to configure the code.
 1. Open the `TodoListApplication\TodoListAPI\src\app\app-config.ts` file.
 1. Locate the object `apiConfig`.
 1. Find the key `webApi` and replace the existing value with the base address of the TodoListAPI project (by default `https://localhost:44351/api/todolist`).
-1. Find the key `scopes` and replace the existing value with API URI you obtained above while registering/exposing your web API (e.g. `api://{API clientId}/access_as_user`).
+1. Find the key `scopes` and replace the existing value with API URI you obtained above while registering/exposing your web API (e.g. `api://{API.clientId}/access_as_user`).
 1. Locate the object `msalConfig`.
 1. Find the key `Authority` and replace the existing value with https://login.microsoftonline.com/common/.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
