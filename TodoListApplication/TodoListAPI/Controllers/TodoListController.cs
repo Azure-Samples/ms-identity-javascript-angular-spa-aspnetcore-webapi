@@ -17,10 +17,8 @@ namespace TodoListAPI.Controllers
     [ApiController]
     public class TodoListController : ControllerBase
     {
-        /// <summary>
-        /// The Web API will only accept tokens 1) for users, and 
-        /// 2) having the access_as_user scope for this API
-        /// </summary>
+        // The Web API will only accept tokens 1) for users, and 
+        // 2) having the access_as_user scope for this API
         static readonly string[] scopeRequiredByApi = new string[] { "access_as_user" };
 
         private readonly TodoContext _context;

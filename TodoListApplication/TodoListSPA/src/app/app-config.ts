@@ -14,15 +14,13 @@ export const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.n
 */ 
 
 
-
 // #region 1) Web API Configuration
 /** 
  * Enter here the coordinates of your Web API and scopes for access token request
- * The current application coordinates were pre-registered in a B2C tenant.
  */
 export const apiConfig = {
-    scopes: ['api://9a4f1ef6-f28f-4175-a80b-8939893f90f4/access_as_user'],
-    webApi: 'https://localhost:44351/api/todolist/'
+    scopes: ['Enter_the_API_Scope_Here'],
+    webApi: 'Enter_the_API_Coordinate_Here',
 };
 // #endregion
 
@@ -35,11 +33,11 @@ export const apiConfig = {
  */
 export const msalConfig: Configuration = {
     auth: {
-        clientId: 'c5ad7d66-babf-4d43-acad-4ab0a7b39579',
-        authority: 'https://login.microsoftonline.com/common/',
+        clientId: 'Enter_the_Application_Id_Here',
+        authority: 'Enter_the_Cloud_Instance_Id_Here/Enter_the_Tenant_Info_Here',
         validateAuthority: true,
-        redirectUri: 'http://localhost:4200/',
-        postLogoutRedirectUri: 'http://localhost:4200/',
+        redirectUri: 'Enter_the_Redirect_Uri_Here',
+        postLogoutRedirectUri: 'Enter_the_Logout_Uri_Here',
         navigateToLoginRequestUrl: true,
       },
     cache: {
