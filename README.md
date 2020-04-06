@@ -10,11 +10,11 @@ description: "This sample demonstrates an Angular single-page application applic
 urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 ---
 
-# A Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
+# An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
 
 This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling a .NET Core Web API (*TodoListAPI*) that is secured by Azure Active Directory.
 
-- TodoListSPA uses the [MicroSoft Authentication Library for JavaScript (MSAL.js)](https://github.com/AzureAD/microsoft-authentication-library-for-js) to authenticate a user.
+- TodoListSPA uses [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) and [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
 - The user obtains an access token from Azure Active Directory (Azure AD).
 - The access token is used authorize the user to call the TodoListAPI.
 - TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
