@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using TodoListAPI.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace TodoListAPI
 {
@@ -23,7 +24,8 @@ namespace TodoListAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Setting configuration for protected web api
-            services.AddProtectWebApiWithMicrosoftIdentityPlatformV2(Configuration);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddProtectedWebApi(Configuration, options => Configuration.Bind("AzureAd", options));
 
             // Creating policies that wraps the authorization requirements
             services.AddAuthorization();

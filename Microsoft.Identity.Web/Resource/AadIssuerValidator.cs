@@ -1,41 +1,20 @@
-﻿/************************************************************************************************
-The MIT License (MIT)
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
 
-Copyright (c) 2015 Microsoft Corporation
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-***********************************************************************************************/
-
-using Microsoft.Identity.Web.InstanceDiscovery;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Protocols;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Identity.Web.InstanceDiscovery;
 
 namespace Microsoft.Identity.Web.Resource
 {
     /// <summary>
-    /// Generic class that validates token issuer from the provided Azure AD authority. Use the <see cref="AadIssuerValidatorFactory"/> to create instaces of this class.
+    /// Generic class that validates token issuer from the provided Azure AD authority. Use the <see cref="AadIssuerValidatorFactory"/> to create instances of this class.
     /// </summary>
     public class AadIssuerValidator
     {
@@ -78,6 +57,7 @@ namespace Microsoft.Identity.Web.Resource
                 var issuerMetadata = s_configManager.GetConfigurationAsync().ConfigureAwait(false).GetAwaiter().GetResult();
                 string authorityHost;
                 try
+
                 {
                     authorityHost = new Uri(aadAuthority).Authority;
                 }
@@ -91,6 +71,7 @@ namespace Microsoft.Identity.Web.Resource
                 var aliases = issuerMetadata.Metadata
                     .Where(m => m.Aliases.Any(a => string.Equals(a, authority, StringComparison.OrdinalIgnoreCase)))
                     .SelectMany(m => m.Aliases)
+                    .Append(authority) // For b2c scenarios, the alias will be the authorityHost itself
                     .Distinct();
                 s_issuerValidators[authority] = new AadIssuerValidator(aliases);
                 return s_issuerValidators[authority];
@@ -114,7 +95,7 @@ namespace Microsoft.Identity.Web.Resource
         /// <exception cref="SecurityTokenInvalidIssuerException">if the issuer </exception>
         public string Validate(string actualIssuer, SecurityToken securityToken, TokenValidationParameters validationParameters)
         {
-            if (String.IsNullOrEmpty(actualIssuer))
+            if (string.IsNullOrEmpty(actualIssuer))
                 throw new ArgumentNullException(nameof(actualIssuer));
 
             if (securityToken == null)
@@ -183,14 +164,35 @@ namespace Microsoft.Identity.Web.Resource
             {
                 if (jwtSecurityToken.Payload.TryGetValue(ClaimConstants.Tid, out object tenantId))
                     return tenantId as string;
+
+                // Since B2C doesn't have TID as default, get it from issuer
+                return GetTenantIdFromIss(jwtSecurityToken.Issuer);
             }
 
-            // brentsch - todo, TryGetPayloadValue is available in 5.5.0
             if (securityToken is JsonWebToken jsonWebToken)
             {
-                var tid = jsonWebToken.GetPayloadValue<string>(ClaimConstants.Tid);
+                jsonWebToken.TryGetPayloadValue(ClaimConstants.Tid, out string tid);
                 if (tid != null)
                     return tid;
+
+                // Since B2C doesn't have TID as default, get it from issuer
+                return GetTenantIdFromIss(jsonWebToken.Issuer);
+            }
+
+            return string.Empty;
+        }
+
+        // The AAD iss claims contains the tenantId in its value. The uri is {domain}/{tid}/v2.0
+        private static string GetTenantIdFromIss(string iss)
+        {
+            if (string.IsNullOrEmpty(iss))
+                return string.Empty;
+
+            var uri = new Uri(iss);
+
+            if (uri.Segments.Length > 1)
+            {
+                return uri.Segments[1].TrimEnd('/');
             }
 
             return string.Empty;
