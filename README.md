@@ -50,21 +50,21 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:
 
-1. Install .NET Core API dependencies
+1. Install .NET Core API dependencies:
 
 ```console
 cd TodoListApplication/TodoListAPI
 dotnet restore
 ```
 
-2. Install Angular SPA dependencies
+2. Install Angular SPA dependencies:
 
 ```console
 cd TodoListApplication/TodoListSPA
 npm install
 ```
 
-3. Establishing certificates
+3. Trust development certificates:
 
 ```
 cd TodoListApplication/TodoListAPI
@@ -74,7 +74,7 @@ dotnet dev-certs https --trust
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1).
 
-4. Configuring application parameters
+4. Configuring application parameters:
 
 See [Registration](#Registration) for details.
 
@@ -182,7 +182,7 @@ Open the project in your IDE to configure the code.
 3. Find the key `TenantId` and replace the existing value with your Azure AD tenant ID.
 4. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the Azure portal.
 
-[!NOTE]
+> [!NOTE]
 > Unless you want to deploy your API on a cloud instance other than Azure Global, you can leave `Instance` key as it is. 
 > Learn more about [National Cloud Deployment](https://docs.microsoft.com/en-us/graph/deployments).
 
