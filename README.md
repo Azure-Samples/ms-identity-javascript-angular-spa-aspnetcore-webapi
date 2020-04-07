@@ -30,7 +30,6 @@ This sample demonstrates a cross-platform application suite involving an Angular
 |-------------------|--------------------------------------------|
 | `AppCreationScripts` | Contains registration scripts for Powershell users. |
 | `Microsoft.Identity.Web` | An authentication helper library that is based on MSAL.NET  |
-| `Microsoft.Identity.Web.Test` | Automated tests for Microsoft.Identit.Web. |
 | `ReadmeFiles` | Sample readme files.                          |
 | `TodoListApplication` | Top-level sample source code directory.  |
 | `.gitignore`      | Define what to ignore at commit time.      |
@@ -159,18 +158,18 @@ There are two projects in this sample. Each needs to be separately registered in
 1. Click the **Save** button on top to save the changes.
 1. In the app's registration screen, click on the **Expose an API** blade to the left to open the page where you can declare the parameters to expose this app as an Api for which client applications can obtain [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for.
 The first thing that we need to do is to declare the unique [resource](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow) URI that the clients will be using to obtain access tokens for this Api. To declare an resource URI, follow the following steps:
-   - Click `Set` next to the **Application ID URI** to generate a URI thats unique for this app.
+   - Click `Set` next to the **Application ID URI** to generate a URI that is unique for this app.
    - For this sample, accept the proposed Application ID URI (api://{clientId}) by selecting **Save**.
 1. All Apis have to publish a minimum of one [scope](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-authorization-code) for the client's to obtain an access token successfully. To publish a scope, follow the following steps:
    - Select **Add a scope** button open the **Add a scope** screen and Enter the values as indicated below:
-          - For **Scope name**, use `access_as_user`.
-          - Select **Admins and users** options for **Who can consent?**
-          - For **Admin consent display name** type `Access TodoListAPI`
-          - For **Admin consent description** type `Allows the app to access TodoListAPI as the signed-in user.`
-          - For **User consent display name** type `Access TodoListAPI`
-          - For **User consent description** type `Allow the application to access TodoListAPI on your behalf.`
-          - Keep **State** as **Enabled**
-          - Click on the **Add scope** button on the bottom to save this scope.
+      - For **Scope name**, use `access_as_user`.
+      - Select **Admins and users** options for **Who can consent?**
+      - For **Admin consent display name** type `Access TodoListAPI`
+      - For **Admin consent description** type `Allows the app to access TodoListAPI as the signed-in user.`
+      - For **User consent display name** type `Access TodoListAPI`
+      - For **User consent description** type `Allow the application to access TodoListAPI on your behalf.`
+      - Keep **State** as **Enabled**
+      - Click on the **Add scope** button on the bottom to save this scope.
 
 ##### Configure the  service app (TodoListAPI) to use your app registration
 
