@@ -56,7 +56,7 @@
       {
         "App": "client",
         "SettingKind": "Text",
-        "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\src\\app\\app-config.ts",
+        "SettingFile": "\\..\\TodoListApplication\\TodoListSPA\\src\\app\\app-config.ts",
         "Mappings": [
           {
             "key": "ClientId",

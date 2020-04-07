@@ -302,7 +302,7 @@ Function ConfigureApplications
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
 
    # Update config file for 'client'
-   $configFile = $pwd.Path + "\..\TodoListApplication\TodoListAPI\src\app\app-config.ts"
+   $configFile = $pwd.Path + "\..\TodoListApplication\TodoListSPA\src\app\app-config.ts"
    Write-Host "Updating the sample code ($configFile)"
    $dictionary = @{ "ClientId" = $clientAadApplication.AppId;"ReturnUri" = $clientAadApplication.HomePage;"webApi" = $serviceAadApplication.HomePage;"scopes" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
