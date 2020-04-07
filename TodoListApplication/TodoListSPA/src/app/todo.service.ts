@@ -1,12 +1,13 @@
 import { Todo } from './todo';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { apiConfig } from './app-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  url = 'https://localhost:44351/api/todolist/';
+  url = apiConfig.webApi;
 
   constructor(private http: HttpClient) { }
 

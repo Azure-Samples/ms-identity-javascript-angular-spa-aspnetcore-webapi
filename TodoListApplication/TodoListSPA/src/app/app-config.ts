@@ -18,9 +18,9 @@ export const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.n
 /** 
  * Enter here the coordinates of your Web API and scopes for access token request
  */
-export const apiConfig = {
-    scopes: ['Enter_the_API_Scope_Here'],
-    webApi: 'Enter_the_API_Coordinate_Here',
+export const apiConfig: {scopes: string[], webApi: string} = {
+    scopes: ['Enter_API_Scopes_Here'],
+    webApi: 'Enter_API_Base_Address_Here',
 };
 // #endregion
 
@@ -34,10 +34,10 @@ export const apiConfig = {
 export const msalConfig: Configuration = {
     auth: {
         clientId: 'Enter_the_Application_Id_Here',
-        authority: 'Enter_the_Cloud_Instance_Id_Here/Enter_the_Tenant_Info_Here',
+        authority: 'https://login.microsoftonline.com/common/',
         validateAuthority: true,
         redirectUri: 'Enter_the_Redirect_Uri_Here',
-        postLogoutRedirectUri: 'Enter_the_Logout_Uri_Here',
+        postLogoutRedirectUri: 'Enter_the_Logout_Redirect_Uri_Here',
         navigateToLoginRequestUrl: true,
       },
     cache: {
@@ -50,12 +50,12 @@ export const msalConfig: Configuration = {
  * Scopes you enter here will be consented once you authenticate. For a full list of available authentication parameters, 
  * visit https://azuread.github.io/microsoft-authentication-library-for-js/docs/msal/modules/_authenticationparameters_.html
  */
-export const loginRequest = {
+export const loginRequest: {scopes: string[]} = {
     scopes: ['openid', 'profile'],
 };
 
 // Scopes you enter will be used for the access token request for your web API
-export const tokenRequest = {
+export const tokenRequest: {scopes: string[]} = {
     scopes: apiConfig.scopes // i.e. ['api://9a4f1ef6-f28f-4175-a80b-8939893f90f4/access_as_user']
 };
 // #endregion

@@ -19,11 +19,13 @@ export class AppComponent implements OnInit {
 
     this.checkoutAccount();
 
-    this.broadcastService.subscribe('msal:loginSuccess', () => {
+    this.broadcastService.subscribe('msal:loginSuccess', (payload) => {
+      console.log(payload);
       this.checkoutAccount();
     });
 
     this.broadcastService.subscribe('msal:loginFailure', (payload) => {
+      console.log(payload);
       console.log('login failed');
     });
 

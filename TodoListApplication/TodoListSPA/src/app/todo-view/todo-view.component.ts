@@ -2,6 +2,8 @@ import { TodoService } from './../todo.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Todo } from '../todo';
+import { MsalService, BroadcastService } from '@azure/msal-angular';
+import { tokenRequest } from '../app-config';
 
 @Component({
   selector: 'app-todo-view',
@@ -16,9 +18,20 @@ export class TodoViewComponent implements OnInit {
 
   displayedColumns = ['status', 'description', 'edit', 'remove'];
 
-  constructor(private service: TodoService) { }
+  constructor(private service: TodoService, private broadcastService: BroadcastService) { }
 
   ngOnInit(): void {
+    this.broadcastService.subscribe('msal:acquireTokenSuccess', (payload) => {
+      console.log(payload);
+      console.log('access token acquired: ' + new Date().toString());
+      
+    });
+ 
+    this.broadcastService.subscribe('msal:acquireTokenFailure', (payload) => {
+      console.log(payload);
+      console.log('access token acquisition fails');
+    });
+
     this.getTodos();
   }
 
@@ -29,7 +42,6 @@ export class TodoViewComponent implements OnInit {
   }
 
   addTodo(add: NgForm): void {
-    // this.todo.description = add.value;
     this.service.postTodo(add.value).subscribe(() => {
       this.getTodos();
     })

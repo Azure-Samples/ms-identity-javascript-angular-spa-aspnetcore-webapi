@@ -298,13 +298,13 @@ Function ConfigureApplications
    # Update config file for 'service'
    $configFile = $pwd.Path + "\..\TodoListApplication\TodoListAPI\appsettings.json"
    Write-Host "Updating the sample code ($configFile)"
-   $dictionary = @{ "Instance" = https://login.microsoftonline.com/;"Domain" = $tenantName;"TenantId" = $tenantId;"ClientId" = $serviceAadApplication.AppId };
+   $dictionary = @{ "Domain" = $tenantName;"TenantId" = $tenantId;"ClientId" = $serviceAadApplication.AppId };
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
 
    # Update config file for 'client'
    $configFile = $pwd.Path + "\..\TodoListApplication\TodoListAPI\src\app\app-config.ts"
    Write-Host "Updating the sample code ($configFile)"
-   $dictionary = @{ "Authority" = https://login.microsoftonline.com/common/;"ClientId" = $clientAadApplication.AppId;"ReturnUri" = $clientAadApplication.HomePage;"webApi" = $serviceAadApplication.HomePage;"scopes" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
+   $dictionary = @{ "ClientId" = $clientAadApplication.AppId;"ReturnUri" = $clientAadApplication.HomePage;"webApi" = $serviceAadApplication.HomePage;"scopes" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
   
    Add-Content -Value "</tbody></table></body></html>" -Path createdApps.html  

@@ -39,10 +39,6 @@
         "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\appsettings.json",
         "Mappings": [
           {
-            "key": "Instance",
-            "value": "https://login.microsoftonline.com/"
-          },
-          {
             "key": "Domain",
             "value": "$tenantName"
           },
@@ -62,10 +58,6 @@
         "SettingKind": "Text",
         "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\src\\app\\app-config.ts",
         "Mappings": [
-          {
-            "key": "Authority",
-            "value": "https://login.microsoftonline.com/common/"
-          },
           {
             "key": "ClientId",
             "value": ".AppId"

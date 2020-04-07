@@ -9,6 +9,9 @@ const routes: Routes = [
   {
     path: 'todo-edit/:id',
     component: TodoEditComponent,
+    canActivate: [
+      MsalGuard
+    ]
   },
   {
     path: 'todo-view',
