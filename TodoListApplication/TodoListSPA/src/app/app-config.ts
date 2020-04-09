@@ -19,8 +19,8 @@ export const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.n
  * Enter here the coordinates of your Web API and scopes for access token request
  */
 export const apiConfig: { scopes: string[], webApi: string } = {
-  scopes: ['api://60b865bb-928f-4c86-9b3f-4e927166478c/access_as_user'],
-  webApi: 'https://localhost:44351/api/todolist',
+  scopes: ['Enter Api scopes as declared in the app registration "Expose an Api" blade. e.g. "api://d8a11510-296e-40bd-b149-e7835acb5ecb/access_as_user"'],
+  webApi: 'Enter the TodoList Web APIs base address, e.g. "https://localhost:44351/api/todolist"',
 };
 
 // #endregion
@@ -34,11 +34,11 @@ export const apiConfig: { scopes: string[], webApi: string } = {
  */
 export const msalConfig: Configuration = {
   auth: {
-    clientId: '60b865bb-928f-4c86-9b3f-4e927166478c',
-    authority: 'https://login.microsoftonline.com/common/',
+    clientId: 'Enter the Client Id (Application ID obtained from the Azure portal), e.g. ba74781c2-53c2-442a-97c2-3d60re42f403',
+    authority: 'https://login.microsoftonline.com/common/', 
     validateAuthority: true,
-    redirectUri: 'http://localhost:4200',
-    postLogoutRedirectUri: 'http://localhost:4200',
+    redirectUri: 'Enter the Redirect Uri that you set on Azure Portal, e.g. http://localhost:4200',
+    postLogoutRedirectUri: 'Enter the Uri that you wish the app to redirect to after logout, e.g. http://localhost:4200',
     navigateToLoginRequestUrl: true,
   },
   cache: {

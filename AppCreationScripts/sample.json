@@ -1,6 +1,6 @@
 {
     "Sample": {
-      "Title": "A Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API",
+      "Title": "An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API",
       "Level": 200,
       "Client": "TodoListSPA",
       "Service": "TodoListAPI",

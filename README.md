@@ -73,7 +73,7 @@ dotnet dev-certs https --trust
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1).
 
-1. Configuring application parameters:
+1. Configure application parameters:
 
 See [Registration](#Registration) for details.
 
