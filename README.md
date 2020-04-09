@@ -6,17 +6,17 @@ languages:
 products:
 - angular
 - dotnet
-description: "This sample demonstrates an Angular single-page application application calling a .NET Core web API that is secured by Azure Active Directory"
+description: "This sample demonstrates an Angular single-page application calling a .NET Core Web API secured with Azure Active Directory"
 urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 ---
 
-# An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
+# An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API
 
-This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling a .NET Core Web API (*TodoListAPI*) that is secured by Azure Active Directory.
+This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling a .NET Core Web API (*TodoListAPI*) secured with Azure Active Directory.
 
 - TodoListSPA uses [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) and [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
-- The user obtains an access token from Azure Active Directory (Azure AD).
-- The access token is used authorize the user to call the TodoListAPI.
+- The app then obtains an [access token](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user.
+- The access token is then used to authorize the call to the TodoListAPI.
 - TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
 
 ![Topology](./ReadmeFiles/topology.png)
@@ -28,7 +28,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `AppCreationScripts` | Contains registration scripts for Powershell users. |
+| `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
 | `Microsoft.Identity.Web` | An authentication helper library that is based on MSAL.NET  |
 | `ReadmeFiles` | Sample readme files.                          |
 | `TodoListApplication` | Top-level sample source code directory.  |
@@ -56,16 +56,16 @@ cd TodoListApplication/TodoListAPI
 dotnet restore
 ```
 
-2. Install Angular SPA dependencies:
+1. Install Angular SPA dependencies:
 
 ```console
 cd TodoListApplication/TodoListSPA
 npm install
 ```
 
-3. Trust development certificates:
+1. Trust development certificates:
 
-```
+```console
 cd TodoListApplication/TodoListAPI
 dotnet dev-certs https --clean
 dotnet dev-certs https --trust
@@ -73,10 +73,9 @@ dotnet dev-certs https --trust
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1).
 
-4. Configuring application parameters:
+1. Configuring application parameters:
 
 See [Registration](#Registration) for details.
-
 
 ## Running the sample
 
@@ -98,7 +97,6 @@ To debug the .NET Core Web API that comes with this sample, install the [C# exte
 
 Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code).
 
-
 ## Key concepts
 
 This sample demonstrates the following MIP and MSAL workflows:
@@ -109,7 +107,6 @@ This sample demonstrates the following MIP and MSAL workflows:
 - How to sign-out.
 - How to acquire an access token.
 - How to make an API call with the access token.
-
 
 ## Registration
 
@@ -136,7 +133,8 @@ There are two projects in this sample. Each needs to be separately registered in
 1. In PowerShell run:
 
    ```PowerShell
-   .\AppCreationScripts\Configure.ps1
+   cd .\AppCreationScripts\
+   .\Configure.ps1
    ```
 
    > Other ways of running the scripts are described in [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md)
@@ -182,7 +180,7 @@ Open the project in your IDE to configure the code.
 4. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the Azure portal.
 
 > [!NOTE]
-> Unless you want to deploy your API on a cloud instance other than Azure Global, you can leave `Instance` key as it is. 
+> Unless you want to deploy your API on a cloud instance other than Azure Global, you can leave `Instance` key as it is.
 > Learn more about [National Cloud Deployment](https://docs.microsoft.com/en-us/graph/deployments).
 
 #### Register the client app (TodoListSPA)
@@ -223,7 +221,6 @@ Open the project in your IDE  to configure the code.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
 1. Find the key `ReturnUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200`).
 
-
 ## More information
 
 For more information, visit the following links:
@@ -233,12 +230,12 @@ For more information, visit the following links:
   - [The OpenID Connect protocol](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc)
   - [Azure AD OAuth Bearer protocol](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols)
   - [Access token](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens)
+  - [Secure a Web API with Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-protected-web-api-overview)
 
 - To lean more about the application registration, visit:
   - [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
   - [Quickstart: Configure a client application to access web APIs (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis)
   - [Quickstart: Configure an application to expose web APIs (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
-
 
 ## Community Help and Support
 
