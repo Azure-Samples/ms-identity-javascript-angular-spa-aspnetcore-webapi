@@ -1,6 +1,6 @@
 {
     "Sample": {
-      "Title": "An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API",
+      "Title": "An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API",
       "Level": 200,
       "Client": "TodoListSPA",
       "Service": "TodoListAPI",
@@ -13,7 +13,7 @@
         "Name": "TodoListAPI",
         "Kind": "WebApi",
         "Audience": "AzureADandPersonalMicrosoftAccount",
-        "HomePage": "https://localhost:44351/api/todolist"
+        "HomePage": "https://localhost:44351/api/todolist/"
        
       },
       {
@@ -21,9 +21,8 @@
         "Name": "TodoListSPA",
         "Kind": "SinglePageApplication",
         "Audience": "AzureADandPersonalMicrosoftAccount",
-        "HomePage": "http://localhost:4200",
-        "ReplyUrls": "http://localhost:4200",
-        "LogoutUrl": "http://localhost:4200",
+        "HomePage": "http://localhost:4200/",
+        "ReplyUrls": "http://localhost:4200/",
         "RequiredResourcesAccess": [
           {
             "Resource": "service",
@@ -56,22 +55,26 @@
       {
         "App": "client",
         "SettingKind": "Text",
-        "SettingFile": "\\..\\TodoListApplication\\TodoListSPA\\src\\app\\app-config.ts",
+        "SettingFile": "\\..\\TodoListApplication\\TodoListSPA\\src\\app\\app-config.json",
         "Mappings": [
           {
-            "key": "ClientId",
-            "value": ".AppId"
+            "key": "clientId",
+            "value": "client.AppId"
           },
           {
-            "key": "ReturnUri",
+            "key": "redirectUri",
             "value": "client.HomePage"
           },
           {
-            "key": "webApi",
+            "key": "postLogoutRedirectUri",
+            "value": "client.HomePage"
+          },
+          {
+            "key": "resourceUri",
             "value": "service.HomePage"
           },
           {
-            "key": "scopes",
+            "key": "resourceScope",
             "value": "service.Scope"
           }
         ]

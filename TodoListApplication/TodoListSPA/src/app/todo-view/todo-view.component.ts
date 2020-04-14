@@ -1,9 +1,10 @@
 import { TodoService } from './../todo.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { BroadcastService, MsalService } from '@azure/msal-angular';
+import { InteractionRequiredAuthError, AuthError } from 'msal';
+import * as config from '../app-config.json';
 import { Todo } from '../todo';
-import { MsalService, BroadcastService } from '@azure/msal-angular';
-import { tokenRequest } from '../app-config';
 
 @Component({
   selector: 'app-todo-view',
@@ -18,7 +19,7 @@ export class TodoViewComponent implements OnInit {
 
   displayedColumns = ['status', 'description', 'edit', 'remove'];
 
-  constructor(private service: TodoService, private broadcastService: BroadcastService) { }
+  constructor(private authService: MsalService, private service: TodoService, private broadcastService: BroadcastService) { }
 
   ngOnInit(): void {
     this.broadcastService.subscribe('msal:acquireTokenSuccess', (payload) => {
@@ -36,8 +37,26 @@ export class TodoViewComponent implements OnInit {
   }
 
   getTodos(): void {
-    this.service.getTodos().subscribe((response: Todo[]) => {
-      this.todos = response;
+    this.service.getTodos().subscribe({
+      next: (response: Todo[]) => {
+        this.todos = response;
+      },
+      error: (err: AuthError) => {
+        // If there is an interaction required error,
+        // call one of the interactive methods and then make the request again.
+        if (InteractionRequiredAuthError.isInteractionRequiredError(err.errorCode)) {
+          this.authService.acquireTokenPopup({
+            scopes: this.authService.getScopesForEndpoint(config.resources.todoListApi.resourceUri)
+          })
+          .then(() => {
+            this.service.getTodos()
+              .toPromise()
+              .then((response: Todo[])  => {
+                this.todos = response;
+              });
+          });
+        }
+      }
     });
   }
 
