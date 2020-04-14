@@ -15,7 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { Configuration } from 'msal';
+import { Configuration, CacheLocation } from 'msal';
 import {
   MsalModule,
   MsalInterceptor,
@@ -25,7 +25,7 @@ import {
   MsalAngularConfiguration
 } from '@azure/msal-angular';
 
-import { msalConfig, msalAngularConfig } from './app-config';
+import * as config from './app-config.json';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { TodoService } from './todo.service';
@@ -33,12 +33,41 @@ import { AppComponent } from './app.component';
 import { TodoEditComponent } from './todo-edit/todo-edit.component';
 import { TodoViewComponent } from './todo-view/todo-view.component';
 
+// checks if the app is running on IE
+export const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+
+export const protectedResourceMap: [string, string[]][] = [
+  [config.resources.todoListApi.resourceUri, [config.resources.todoListApi.resourceScope]]
+];
+
 function MSALConfigFactory(): Configuration {
-  return msalConfig;
+  return {
+    auth: {
+      clientId: config.auth.clientId,
+      authority: config.auth.authority,
+      validateAuthority: true,
+      redirectUri: config.auth.redirectUri,
+      postLogoutRedirectUri: config.auth.postLogoutRedirectUri,
+      navigateToLoginRequestUrl: true,
+    },
+    cache: {
+      cacheLocation: <CacheLocation>config.cache.cacheLocation,
+      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+  };
 }
 
 function MSALAngularConfigFactory(): MsalAngularConfiguration {
-  return msalAngularConfig;
+  return {
+    popUp: !isIE,
+    consentScopes: [
+      config.resources.todoListApi.resourceScope,
+      ...config.scopes.loginRequest
+    ],
+    unprotectedResources: [],
+    protectedResourceMap,
+    extraQueryParameters: {}
+  };
 }
 
 @NgModule({

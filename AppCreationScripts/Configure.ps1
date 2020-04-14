@@ -194,7 +194,7 @@ Function ConfigureApplications
    Write-Host "Creating the AAD application (TodoListAPI)"
    # create the application 
    $serviceAadApplication = New-AzureADApplication -DisplayName "TodoListAPI" `
-                                                   -HomePage "https://localhost:44351/api/todolist" `
+                                                   -HomePage "https://localhost:44351/api/todolist/" `
                                                    -AvailableToOtherTenants $True `
                                                    -PublicClient $False
    $serviceIdentifierUri = 'api://'+$serviceAadApplication.AppId
@@ -254,9 +254,8 @@ Function ConfigureApplications
    Write-Host "Creating the AAD application (TodoListSPA)"
    # create the application 
    $clientAadApplication = New-AzureADApplication -DisplayName "TodoListSPA" `
-                                                  -HomePage "http://localhost:4200" `
-                                                  -LogoutUrl "http://localhost:4200" `
-                                                  -ReplyUrls "http://localhost:4200" `
+                                                  -HomePage "http://localhost:4200/" `
+                                                  -ReplyUrls "http://localhost:4200/" `
                                                   -IdentifierUris "https://$tenantName/TodoListSPA" `
                                                   -AvailableToOtherTenants $True `
                                                   -Oauth2AllowImplicitFlow $true `
@@ -302,9 +301,9 @@ Function ConfigureApplications
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
 
    # Update config file for 'client'
-   $configFile = $pwd.Path + "\..\TodoListApplication\TodoListSPA\src\app\app-config.ts"
+   $configFile = $pwd.Path + "\..\TodoListApplication\TodoListSPA\src\app\app-config.json"
    Write-Host "Updating the sample code ($configFile)"
-   $dictionary = @{ "ClientId" = $clientAadApplication.AppId;"ReturnUri" = $clientAadApplication.HomePage;"webApi" = $serviceAadApplication.HomePage;"scopes" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
+   $dictionary = @{ "clientId" = $clientAadApplication.AppId;"redirectUri" = $clientAadApplication.HomePage;"postLogoutRedirectUri" = $clientAadApplication.HomePage;"resourceUri" = $serviceAadApplication.HomePage;"resourceScope" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
   
    Add-Content -Value "</tbody></table></body></html>" -Path createdApps.html  
