@@ -13,8 +13,12 @@
         "Name": "TodoListAPI",
         "Kind": "WebApi",
         "Audience": "AzureADandPersonalMicrosoftAccount",
-        "HomePage": "https://localhost:44351/api/todolist/"
-       
+        "HomePage": "https://localhost:44351/api/todolist/",
+        "ManualSteps": [
+          {
+            "Comment": "Navigate to the Manifest page and change 'signInAudience' to 'AzureADandPersonalMicrosoftAccount'."
+          }
+        ]
       },
       {
         "Id": "client",
@@ -28,13 +32,18 @@
             "Resource": "service",
             "DelegatedPermissions": [ "access_as_user" ]
           }
+        ],
+        "ManualSteps": [
+          {
+            "Comment": "Navigate to the Manifest page and change 'signInAudience' to 'AzureADandPersonalMicrosoftAccount'."
+          }
         ]
       }
     ],
     "CodeConfiguration": [
       {
         "App": "service",
-        "SettingKind": "Text",
+        "SettingKind": "JSon",
         "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\appsettings.json",
         "Mappings": [
           {
@@ -54,7 +63,7 @@
   
       {
         "App": "client",
-        "SettingKind": "Text",
+        "SettingKind": "JSon",
         "SettingFile": "\\..\\TodoListApplication\\TodoListSPA\\src\\app\\app-config.json",
         "Mappings": [
           {
