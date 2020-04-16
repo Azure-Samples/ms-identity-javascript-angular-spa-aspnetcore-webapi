@@ -25,7 +25,7 @@ namespace TodoListAPI
         {
             // Setting configuration for protected web api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddProtectedWebApi(Configuration, options => Configuration.Bind("AzureAd", options));
+                .AddProtectedWebApi(Configuration);
 
             // Creating policies that wraps the authorization requirements
             services.AddAuthorization();
