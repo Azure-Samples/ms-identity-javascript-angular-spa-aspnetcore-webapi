@@ -29,10 +29,8 @@ This sample demonstrates a cross-platform application suite involving an Angular
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
-| `Microsoft.Identity.Web` | An authentication helper library that is based on MSAL.NET  |
 | `ReadmeFiles` | Sample readme files.                          |
 | `TodoListApplication` | Top-level sample source code directory.  |
-| `.gitignore`      | Define what to ignore at commit time.      |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md`       | This README file.                          |
@@ -49,6 +47,15 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:
 
+1. Clone or download this repository:
+
+```console
+git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
+```
+
+> [!NOTE]
+> Given that the name of the sample is quiet long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
+
 1. Install .NET Core API dependencies:
 
 ```console
@@ -56,19 +63,19 @@ cd TodoListApplication/TodoListAPI
 dotnet restore
 ```
 
-1. Install Angular SPA dependencies:
-
-```console
-cd TodoListApplication/TodoListSPA
-npm install
-```
-
 1. Trust development certificates:
 
 ```console
-cd TodoListApplication/TodoListAPI
 dotnet dev-certs https --clean
 dotnet dev-certs https --trust
+```
+
+1. Install Angular SPA dependencies:
+
+```console
+cd ../
+cd TodoListSPA
+npm install
 ```
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1).
@@ -77,36 +84,6 @@ Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/en-us/aspnet/co
 
 See [Registration](#Registration) for details.
 
-## Running the sample
-
-Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:  
-
-```console
-cd TodoListApplication/TodoListAPI
-dotnet run
-```
-
-```console
-cd TodoListApplication/TodoListSPA
-npm start
-```
-
-## Debugging the sample
-
-To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
-
-Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code).
-
-## Key concepts
-
-This sample demonstrates the following MIP and MSAL workflows:
-
-- How to protect a Web API.
-- How to configure application parameters.
-- How to sign-in.
-- How to sign-out.
-- How to acquire an access token.
-- How to make an API call with the access token.
 
 ## Registration
 
@@ -190,11 +167,10 @@ Open the project in your IDE to configure the code.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
    - Change **Supported account types** to **Accounts in any organizational directory and personal Microsoft accounts (e.g. Skype, Xbox, Outlook.com)**.
-   - In the Redirect URI (optional) section, select **Web** in the combo-box and enter the following redirect URIs: `http://localhost:4200`.
+   - In the Redirect URI (optional) section, select **Web** in the combo-box and enter the following redirect URIs: `http://localhost:4200/`.
 1. Click on the **Register** button in bottom to create the application.
 1. In the app's registration screen, find the **Application (client) ID** value and record it for use later. You'll need it to configure the configuration file(s) later in your code.
 1. In the app's registration screen, click on the **Authentication** blade in the left.
-   - In the **Advanced settings** section, set **Logout URL** to `http://localhost:4200`.
    - In the **Advanced settings** | **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
      the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to
      sign-in the user, and call an API.
@@ -210,16 +186,57 @@ Open the project in your IDE to configure the code.
 ##### Configure the  client app (TodoListSPA) to use your app registration
 
 Open the project in your IDE  to configure the code.
->In the steps below, "ClientID" is the same as "Application ID" or "AppId".
+> In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
 1. Open the `TodoListApplication\TodoListAPI\src\app\app-config.ts` file.
 1. Locate the object `apiConfig`.
-1. Find the key `webApi` and replace the existing value with the base address of the TodoListAPI project (by default `https://localhost:44351/api/todolist`).
+1. Find the key `webApi` and replace the existing value with the base address of the TodoListAPI project (by default `https://localhost:44351/api/todolist/`).
 1. Find the key `scopes` and replace the existing value with API URI you obtained above while registering/exposing your web API (e.g. `api://{API.clientId}/access_as_user`).
 1. Locate the object `msalConfig`.
 1. Find the key `Authority` and replace the existing value with https://login.microsoftonline.com/common/.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
-1. Find the key `ReturnUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200`).
+1. Find the key `ReturnUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
+
+## Running the sample
+
+Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:  
+
+```console
+cd TodoListApplication/TodoListAPI
+dotnet run
+```
+
+```console
+cd ../
+cd TodoListSPA
+npm start
+```
+
+## Explore the sample
+
+1. Open your browser on http://localhost:4200.
+2. Sign-in using the button on top-right.
+3. Click on the "Get my tasks" button to access your todo list.
+
+> [!NOTE]
+> Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](https://github.com/issues) page.
+
+## Debugging the sample
+
+To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
+
+Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code).
+
+## Key concepts
+
+This sample demonstrates the following MIP and MSAL workflows:
+
+- How to protect a Web API.
+- How to configure application parameters.
+- How to sign-in.
+- How to sign-out.
+- How to acquire an access token.
+- How to make an API call with the access token.
 
 ## More information
 
@@ -236,6 +253,7 @@ For more information, visit the following links:
   - [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
   - [Quickstart: Configure a client application to access web APIs (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis)
   - [Quickstart: Configure an application to expose web APIs (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
+
 
 ## Community Help and Support
 

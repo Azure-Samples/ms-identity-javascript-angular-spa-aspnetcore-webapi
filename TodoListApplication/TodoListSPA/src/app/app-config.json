@@ -3,8 +3,8 @@
         "clientId": "Enter the Client Id (Application ID obtained from the Azure portal), e.g. 'xxxxxx-xxxx-xxxx-xxxxxxxxxx'",
         "authority": "https://login.microsoftonline.com/common",
         "validateAuthority": true,
-        "redirectUri": "Enter the Redirect Uri that you set on Azure Portal, e.g. 'http://localhost:4200'",
-        "postLogoutRedirectUri": "Enter the Uri that you wish the app to redirect to after logout, e.g. 'http://localhost:4200'",
+        "redirectUri": "Enter the Redirect Uri that you set on Azure Portal, e.g. 'http://localhost:4200/'",
+        "postLogoutRedirectUri": "Enter the Uri that you wish the app to redirect to after logout, e.g. 'http://localhost:4200/'",
         "navigateToLoginRequestUrl": true
     },
     "cache": {
@@ -15,7 +15,7 @@
     },
     "resources": {
         "todoListApi": {
-            "resourceUri": "Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist'",
+            "resourceUri": "Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist/'",
             "resourceScope": "Enter the API scopes as declared in the app registration 'Expose an Api' blade. e.g. 'api://xxxxxx-xxxx-xxxx-xxxxxxxxxx/access_as_user'"
         }
     }     
