@@ -12,19 +12,25 @@ urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 
 # An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API
 
+## About this sample
+
+### Overview
+
 This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling a .NET Core Web API (*TodoListAPI*) secured with Azure Active Directory.
 
+### Scenario
+
 - TodoListSPA uses [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) and [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
-- The app then obtains an [access token](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user.
+- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user.
 - The access token is then used to authorize the call to the TodoListAPI.
 - TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
 
 ![Topology](./ReadmeFiles/topology.png)
 
 > [!NOTE]
-> This sample uses Angular 9 with .NET Core 3.1 and is configured to be a multi-tenant application. Learn more about [Tenancy in Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/single-and-multi-tenant-apps).
+> This sample uses Angular 9 with .NET Core 3.1 and is configured to be a multi-tenant application. Learn more about [Tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps).
 
-## Contents
+### Contents
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
@@ -36,18 +42,20 @@ This sample demonstrates a cross-platform application suite involving an Angular
 | `README.md`       | This README file.                          |
 | `LICENSE`         | The license for the sample.                |
 
-## Prerequisites
+## Setup
+
+### Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
 - [Angular-cli](https://cli.angular.io/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
 - We recommend [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
 
-## Setup
+### Steps
 
 Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:
 
-1. Clone or download this repository:
+#### Step 1. Clone or download this repository
 
 ```console
 git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
@@ -56,21 +64,23 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 > [!NOTE]
 > Given that the name of the sample is quiet long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
 
-1. Install .NET Core API dependencies:
+#### Step 2. Install .NET Core API dependencies
 
 ```console
 cd TodoListApplication/TodoListAPI
 dotnet restore
 ```
 
-1. Trust development certificates:
+#### Step 3. Trust development certificates
 
 ```console
 dotnet dev-certs https --clean
 dotnet dev-certs https --trust
 ```
 
-1. Install Angular SPA dependencies:
+Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/security/enforcing-ssl).
+
+#### Step 4. Install Angular SPA dependencies
 
 ```console
 cd ../
@@ -78,16 +88,7 @@ cd TodoListSPA
 npm install
 ```
 
-Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/enforcing-ssl?view=aspnetcore-3.1).
-
-1. Configure application parameters:
-
-See [Registration](#Registration) for details.
-
-
-## Registration
-
-### Register the sample application with your Azure Active Directory tenant
+### Register the sample applications with your Azure Active Directory tenant
 
 There are two projects in this sample. Each needs to be separately registered in your Azure AD tenant. To register these projects, you can:
 
@@ -158,7 +159,7 @@ Open the project in your IDE to configure the code.
 
 > [!NOTE]
 > Unless you want to deploy your API on a cloud instance other than Azure Global, you can leave `Instance` key as it is.
-> Learn more about [National Cloud Deployment](https://docs.microsoft.com/en-us/graph/deployments).
+> Learn more about [National Cloud Deployment](https://docs.microsoft.com/graph/deployments).
 
 #### Register the client app (TodoListSPA)
 
@@ -197,7 +198,7 @@ Open the project in your IDE  to configure the code.
 1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
 1. Find the key `ReturnUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
 
-## Running the sample
+### Run the sample
 
 Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:  
 
@@ -212,20 +213,20 @@ cd TodoListSPA
 npm start
 ```
 
-## Explore the sample
+### Explore the sample
 
 1. Open your browser on http://localhost:4200.
 2. Sign-in using the button on top-right.
 3. Click on the "Get my tasks" button to access your todo list.
 
 > [!NOTE]
-> Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](https://github.com/issues) page.
+> Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
 ## Debugging the sample
 
 To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
 
-Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code).
+Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/dotnet/core/tutorials/with-visual-studio-code).
 
 ## Key concepts
 
@@ -243,17 +244,16 @@ This sample demonstrates the following MIP and MSAL workflows:
 For more information, visit the following links:
 
 - Articles about the Microsoft identity platform are at [http://aka.ms/aaddevv2](http://aka.ms/aaddevv2), with a focus on:
-  - [The OAuth 2.0 Implicit Grant in Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-implicit-grant-flow)
-  - [The OpenID Connect protocol](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-protocols-oidc)
-  - [Azure AD OAuth Bearer protocol](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols)
-  - [Access token](https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens)
-  - [Secure a Web API with Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-protected-web-api-overview)
+  - [The OAuth 2.0 Implicit Grant in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow)
+  - [The OpenID Connect protocol](https://docs.microsoft.com/azure/active-directory/develop/v2-protocols-oidc)
+  - [Azure AD OAuth Bearer protocol](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols)
+  - [Access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens)
+  - [Secure a Web API with Azure AD](https://docs.microsoft.com/azure/active-directory/develop/scenario-protected-web-api-overview)
 
 - To lean more about the application registration, visit:
-  - [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app)
-  - [Quickstart: Configure a client application to access web APIs (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis)
-  - [Quickstart: Configure an application to expose web APIs (Preview)](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
-
+  - [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
+  - [Quickstart: Configure a client application to access web APIs (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-configure-app-access-web-apis)
+  - [Quickstart: Configure an application to expose web APIs (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
 
 ## Community Help and Support
 
