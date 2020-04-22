@@ -37,15 +37,15 @@
         "SettingFile": "\\..\\TodoListAPI\\appsettings.json",
         "Mappings": [
           {
-            "key": "Enter the domain of your tenant, e.g. 'contoso.onmicrosoft.com'",
+            "key": "Enter the domain of your Azure AD tenant, e.g. 'contoso.onmicrosoft.com'",
             "value": "$tenantName"
           },
           {
-            "key": "Enter 'organizations' or the Tenant Id",
+            "key": "Enter 'organizations' or the Tenant Id of your Azure AD tenant",
             "value": "$tenantId"
           },
           {
-            "key": "Enter the Client Id (aka 'Application ID')",
+            "key": "Enter the application ID (clientId) of the 'TodoListAPI' application copied from the Azure portal",
             "value": "service.AppId"
           }
         ]
@@ -61,15 +61,15 @@
             "value": "client.AppId"
           },
           {
-            "key": "Enter the Redirect Uri that you set on Azure Portal",
+            "key": "Enter the Redirect Uri that you set on Azure Portal, like http://localhost:4200",
             "value": "client.HomePage"
           },
           {
-            "key": "<enter 'organizations' or the Tenant Id>",
+            "key": "[enter 'organizations' or the Tenant Id]",
             "value": "$tenantId"
           },
           {
-            "key": "Enter the Uri that you wish the app to redirect to after logout",
+            "key": "Enter the Uri that you wish the app to redirect to after logout, like http://localhost:4200",
             "value": "client.HomePage"
           },
           {
@@ -77,7 +77,7 @@
             "value": "service.HomePage"
           },
           {
-            "key": "Enter the API scopes as declared in the app registration 'Expose an Api' blade",
+            "key": "Enter the API scopes as declared in the app registration 'Expose an Api' blade in the form of 'api://{clientId}/access_as_user'",
             "value": "service.Scope"
           }
         ]
