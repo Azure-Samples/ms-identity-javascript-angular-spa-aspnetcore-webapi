@@ -53,7 +53,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 ### Steps
 
-Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:
+Using a command line interface such as VS Code integrated terminal, locate the application directory, then:
 
 #### Step 1. Clone or download this repository
 
@@ -67,7 +67,7 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 #### Step 2. Install .NET Core API dependencies
 
 ```console
-cd TodoListApplication/TodoListAPI
+cd TodoListAPI
 dotnet restore
 ```
 
