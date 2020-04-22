@@ -12,30 +12,20 @@
         "Id": "service",
         "Name": "TodoListAPI",
         "Kind": "WebApi",
-        "Audience": "AzureADandPersonalMicrosoftAccount",
-        "HomePage": "https://localhost:44351/api/todolist/",
-        "ManualSteps": [
-          {
-            "Comment": "Navigate to the Manifest page and change 'signInAudience' to 'AzureADandPersonalMicrosoftAccount'."
-          }
-        ]
+        "Audience": "AzureADMultipleOrgs",
+        "HomePage": "https://localhost:44351/api/todolist/"        
       },
       {
         "Id": "client",
         "Name": "TodoListSPA",
         "Kind": "SinglePageApplication",
-        "Audience": "AzureADandPersonalMicrosoftAccount",
+        "Audience": "AzureADMultipleOrgs",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls": "http://localhost:4200/",
         "RequiredResourcesAccess": [
           {
             "Resource": "service",
             "DelegatedPermissions": [ "access_as_user" ]
-          }
-        ],
-        "ManualSteps": [
-          {
-            "Comment": "Navigate to the Manifest page and change 'signInAudience' to 'AzureADandPersonalMicrosoftAccount'."
           }
         ]
       }
@@ -44,7 +34,7 @@
       {
         "App": "service",
         "SettingKind": "JSon",
-        "SettingFile": "\\..\\TodoListApplication\\TodoListAPI\\appsettings.json",
+        "SettingFile": "\\..\\TodoListAPI\\appsettings.json",
         "Mappings": [
           {
             "key": "Domain",
@@ -64,7 +54,7 @@
       {
         "App": "client",
         "SettingKind": "JSon",
-        "SettingFile": "\\..\\TodoListApplication\\TodoListSPA\\src\\app\\app-config.json",
+        "SettingFile": "\\..\\TodoListSPA\\src\\app\\app-config.json",
         "Mappings": [
           {
             "key": "clientId",

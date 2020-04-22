@@ -2,7 +2,9 @@
 param(
     [PSCredential] $Credential,
     [Parameter(Mandatory=$False, HelpMessage='Tenant ID (This is a GUID which represents the "Directory ID" of the AzureAD tenant into which you want to create the apps')]
-    [string] $tenantId
+    [string] $tenantId,
+    [Parameter(Mandatory=$False, HelpMessage='Azure environment to use while running the script (it defaults to AzureCloud)')]
+    [string] $azureEnvironmentName
 )
 
 <#
@@ -157,6 +159,11 @@ Function ConfigureApplications
    so that they are consistent with the Applications parameters
 #> 
     $commonendpoint = "common"
+    
+    if (!$azureEnvironmentName)
+    {
+        $azureEnvironmentName = "AzureCloud"
+    }
 
     # $tenantId is the Active Directory Tenant. This is a GUID which represents the "Directory ID" of the AzureAD tenant
     # into which you want to create the apps. Look it up in the Azure portal in the "Properties" of the Azure AD.
@@ -165,17 +172,17 @@ Function ConfigureApplications
     # you'll need to sign-in with creds enabling your to create apps in the tenant)
     if (!$Credential -and $TenantId)
     {
-        $creds = Connect-AzureAD -TenantId $tenantId
+        $creds = Connect-AzureAD -TenantId $tenantId -AzureEnvironmentName $azureEnvironmentName
     }
     else
     {
         if (!$TenantId)
         {
-            $creds = Connect-AzureAD -Credential $Credential
+            $creds = Connect-AzureAD -Credential $Credential -AzureEnvironmentName $azureEnvironmentName
         }
         else
         {
-            $creds = Connect-AzureAD -TenantId $tenantId -Credential $Credential
+            $creds = Connect-AzureAD -TenantId $tenantId -Credential $Credential -AzureEnvironmentName $azureEnvironmentName
         }
     }
 
@@ -183,6 +190,8 @@ Function ConfigureApplications
     {
         $tenantId = $creds.Tenant.Id
     }
+
+    
 
     $tenant = Get-AzureADTenantDetail
     $tenantName =  ($tenant.VerifiedDomains | Where { $_._Default -eq $True }).Name
@@ -295,28 +304,17 @@ Function ConfigureApplications
    Write-Host "Granted permissions."
 
    # Update config file for 'service'
-   $configFile = $pwd.Path + "\..\TodoListApplication\TodoListAPI\appsettings.json"
+   $configFile = $pwd.Path + "\..\TodoListAPI\appsettings.json"
    Write-Host "Updating the sample code ($configFile)"
    $dictionary = @{ "Domain" = $tenantName;"TenantId" = $tenantId;"ClientId" = $serviceAadApplication.AppId };
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
 
    # Update config file for 'client'
-   $configFile = $pwd.Path + "\..\TodoListApplication\TodoListSPA\src\app\app-config.json"
+   $configFile = $pwd.Path + "\..\TodoListSPA\src\app\app-config.json"
    Write-Host "Updating the sample code ($configFile)"
    $dictionary = @{ "clientId" = $clientAadApplication.AppId;"redirectUri" = $clientAadApplication.HomePage;"postLogoutRedirectUri" = $clientAadApplication.HomePage;"resourceUri" = $serviceAadApplication.HomePage;"resourceScope" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
    UpdateTextFile -configFilePath $configFile -dictionary $dictionary
-   Write-Host ""
-   Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
-   Write-Host "IMPORTANT: Please follow the instructions below to complete a few manual step(s) in the Azure portal":
-   Write-Host "- For 'service'"
-   Write-Host "  - Navigate to '$servicePortalUrl'"
-   Write-Host "  - Navigate to the Manifest page and change 'signInAudience' to 'AzureADandPersonalMicrosoftAccount'." -ForegroundColor Red 
-   Write-Host "- For 'client'"
-   Write-Host "  - Navigate to '$clientPortalUrl'"
-   Write-Host "  - Navigate to the Manifest page and change 'signInAudience' to 'AzureADandPersonalMicrosoftAccount'." -ForegroundColor Red 
-
-   Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
-     
+  
    Add-Content -Value "</tbody></table></body></html>" -Path createdApps.html  
 }
 
