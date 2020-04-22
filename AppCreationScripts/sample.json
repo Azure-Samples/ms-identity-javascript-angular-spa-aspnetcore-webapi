@@ -33,19 +33,19 @@
     "CodeConfiguration": [
       {
         "App": "service",
-        "SettingKind": "Json",
+        "SettingKind": "Replace",
         "SettingFile": "\\..\\TodoListAPI\\appsettings.json",
         "Mappings": [
           {
-            "key": "Domain",
+            "key": "Enter the domain of your tenant, e.g. 'contoso.onmicrosoft.com'",
             "value": "$tenantName"
           },
           {
-            "key": "TenantId",
+            "key": "Enter 'organizations' or the Tenant Id",
             "value": "$tenantId"
           },
           {
-            "key": "ClientId",
+            "key": "Enter the Client Id (aka 'Application ID')",
             "value": "service.AppId"
           }
         ]
@@ -53,27 +53,31 @@
   
       {
         "App": "client",
-        "SettingKind": "Json",
+        "SettingKind": "Replace",
         "SettingFile": "\\..\\TodoListSPA\\src\\app\\app-config.json",
         "Mappings": [
           {
-            "key": "clientId",
+            "key": "Enter the Client Id (aka 'Application ID')",
             "value": "client.AppId"
           },
           {
-            "key": "redirectUri",
+            "key": "Enter the Redirect Uri that you set on Azure Portal",
             "value": "client.HomePage"
           },
           {
-            "key": "postLogoutRedirectUri",
+            "key": "<enter 'organizations' or the Tenant Id>",
+            "value": "$tenantId"
+          },
+          {
+            "key": "Enter the Uri that you wish the app to redirect to after logout",
             "value": "client.HomePage"
           },
           {
-            "key": "resourceUri",
+            "key": "Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist/'",
             "value": "service.HomePage"
           },
           {
-            "key": "resourceScope",
+            "key": "Enter the API scopes as declared in the app registration 'Expose an Api' blade",
             "value": "service.Scope"
           }
         ]
