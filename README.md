@@ -56,7 +56,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 ### Steps
 
-Using a command line interface such as VS Code integrated terminal, locate the application directory, then:
+Using a command line interface such as VS Code integrated terminal, follow the steps below:
 
 #### Step 1. Clone or download this repository
 
@@ -65,12 +65,12 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 ```
 
 > [!NOTE]
-> Given that the name of the sample is quiet long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
+> Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
 
 #### Step 2. Install .NET Core API dependencies
 
 ```console
-cd TodoListAPI
+cd ms-identity-javascript-angular-spa-aspnetcore-webapi/TodoListAPI
 dotnet restore
 ```
 
@@ -97,8 +97,8 @@ There are two projects in this sample. Each needs to be separately registered in
 
 - either follow the steps below for manual registration,
 - or use PowerShell scripts that:
-  - **automatically** creates the Azure AD applications and related objects (passwords, permissions, dependencies) for you. Note that this works for Visual Studio only.
-  - modify the Visual Studio projects' configuration files.
+  - **automatically** creates the Azure AD applications and related objects (passwords, permissions, dependencies) for you.
+  - modify the configuration files.
 
 <details>
   <summary>Expand this section if you want to use this automation:</summary>
@@ -121,7 +121,7 @@ There are two projects in this sample. Each needs to be separately registered in
    > Other ways of running the scripts are described in [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md)
    > The scripts also provide a guide to automated application registration, configuration and removal which can help in your CI/CD scenarios.
 
-1. Open the Visual Studio solution and click start to run the code.
+1. Follow the section on "Running the sample" below.
 
 </details>
 
@@ -230,7 +230,7 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 
 ## Key concepts
 
-This sample demonstrates the following MIP and MSAL workflows:
+This sample demonstrates the following Azure AD and MSAL workflows:
 
 - How to protect a Web API.
 - How to configure application parameters.

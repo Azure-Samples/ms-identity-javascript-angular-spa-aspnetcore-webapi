@@ -33,7 +33,7 @@
     "CodeConfiguration": [
       {
         "App": "service",
-        "SettingKind": "JSon",
+        "SettingKind": "Json",
         "SettingFile": "\\..\\TodoListAPI\\appsettings.json",
         "Mappings": [
           {
@@ -53,7 +53,7 @@
   
       {
         "App": "client",
-        "SettingKind": "JSon",
+        "SettingKind": "Json",
         "SettingFile": "\\..\\TodoListSPA\\src\\app\\app-config.json",
         "Mappings": [
           {
