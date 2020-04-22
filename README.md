@@ -70,7 +70,7 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 #### Step 2. Install .NET Core API dependencies
 
 ```console
-cd ms-identity-javascript-angular-spa-aspnetcore-webapi/TodoListAPI
+cd TodoListAPI
 dotnet restore
 ```
 
