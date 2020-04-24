@@ -28,7 +28,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 ![Topology](./ReadmeFiles/topology.png)
 
 > [!NOTE]
-> This sample uses Angular 9 with .NET Core 3.1 and is configured to be a multi-tenant application. Learn more about [Tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps).
+> This sample uses **Angular 9** with **.NET Core 3.1** and is intended to be a **single-tenant application**. Learn more about [Tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps).
 
 ### Contents
 
@@ -131,7 +131,7 @@ There are two projects in this sample. Each needs to be separately registered in
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListAPI`.
-   - Under **Supported account types**, select **Accounts in any organizational directory**.
+   - Under **Supported account types**, select **Accounts in this organizational directory**.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. Select **Save** to save your changes.
@@ -166,7 +166,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
-   - Under **Supported account types**, select **Accounts in any organizational directory**.
+   - Under **Supported account types**, select **Accounts in this organizational directory**.
    - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
@@ -231,7 +231,7 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 
 ## Key concepts
 
-This sample demonstrates the following Azure AD and MSAL workflows:
+This sample demonstrates the following AAD and MSAL workflows:
 
 - How to protect a Web API.
 - How to configure application parameters.
