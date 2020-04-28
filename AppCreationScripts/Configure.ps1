@@ -309,7 +309,20 @@ Function ConfigureApplications
    Write-Host "Updating the sample code ($configFile)"
    $dictionary = @{ "Enter the Client Id (aka 'Application ID')" = $clientAadApplication.AppId;"Enter the Redirect Uri that you set on Azure Portal, like http://localhost:4200" = $clientAadApplication.HomePage;"Enter the Uri that you wish the app to redirect to after logout, like http://localhost:4200" = $clientAadApplication.HomePage;"Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist/'" = $serviceAadApplication.HomePage;"Enter the API scopes as declared in the app registration 'Expose an Api' blade in the form of 'api://{clientId}/access_as_user'" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
    ReplaceInTextFile -configFilePath $configFile -dictionary $dictionary
-  
+   Write-Host ""
+   Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
+   Write-Host "IMPORTANT: Please follow the instructions below to complete a few manual step(s) in the Azure portal":
+   Write-Host "- For 'service'"
+   Write-Host "  - Navigate to '$servicePortalUrl'"
+   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest" -ForegroundColor Red 
+   Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
+   Write-Host "- For 'client'"
+   Write-Host "  - Navigate to '$clientPortalUrl'"
+   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest" -ForegroundColor Red 
+   Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
+
+   Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
+     
    Add-Content -Value "</tbody></table></body></html>" -Path createdApps.html  
 }
 
