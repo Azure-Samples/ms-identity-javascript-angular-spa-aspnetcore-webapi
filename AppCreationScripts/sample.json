@@ -12,14 +12,14 @@
         "Id": "service",
         "Name": "TodoListAPI",
         "Kind": "WebApi",
-        "Audience": "AzureADMultipleOrgs",
+        "Audience": "AzureADandPersonalMicrosoftAccount",
         "HomePage": "https://localhost:44351/api/todolist/"        
       },
       {
         "Id": "client",
         "Name": "TodoListSPA",
         "Kind": "SinglePageApplication",
-        "Audience": "AzureADMultipleOrgs",
+        "Audience": "AzureADandPersonalMicrosoftAccount",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls": "http://localhost:4200/",
         "RequiredResourcesAccess": [
@@ -41,10 +41,6 @@
             "value": "$tenantName"
           },
           {
-            "key": "Enter 'organizations' or the Tenant Id of your Azure AD tenant",
-            "value": "$tenantId"
-          },
-          {
             "key": "Enter the application ID (clientId) of the 'TodoListAPI' application copied from the Azure portal",
             "value": "service.AppId"
           }
@@ -63,10 +59,6 @@
           {
             "key": "Enter the Redirect Uri that you set on Azure Portal, like http://localhost:4200",
             "value": "client.HomePage"
-          },
-          {
-            "key": "[enter 'organizations' or the Tenant Id]",
-            "value": "$tenantId"
           },
           {
             "key": "Enter the Uri that you wish the app to redirect to after logout, like http://localhost:4200",
