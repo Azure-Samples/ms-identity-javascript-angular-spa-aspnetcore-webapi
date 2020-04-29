@@ -28,7 +28,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 ![Topology](./ReadmeFiles/topology.png)
 
 > [!NOTE]
-> This sample uses **Angular 9** with **.NET Core 3.1** and is intended to be a **single-tenant application**. Learn more about [Tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps).
+> This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
 
 ### Contents
 
@@ -127,11 +127,14 @@ There are two projects in this sample. Each needs to be separately registered in
 
 #### Register the service app (TodoListAPI)
 
+> [!NOTE]
+> If you would like to authorize users from other tenants to use this application (i.e. multi-tenancy - learn more about [tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)), you may want to *combine* the registration steps for Web API and SPA, so that both the Web API and the SPA uses the **same** Application (client) ID. This is not needed for supporting **personal Microsoft accounts**.
+
 1. Navigate to the Microsoft identity platform for developers [App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page.
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListAPI`.
-   - Under **Supported account types**, select **Accounts in this organizational directory**.
+   - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. Select **Save** to save your changes.
@@ -157,7 +160,6 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 1. Open the `TodoListAPI\appsettings.json` file
 1. Find the app key `Domain` and replace the existing value with your Azure AD tenant name.
-1. Find the app key `TenantId` and replace the existing value with your Azure AD tenant ID.
 1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the Azure portal.
 
 #### Register the client app (TodoListSPA)
@@ -166,7 +168,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
-   - Under **Supported account types**, select **Accounts in this organizational directory**.
+   - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
    - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
@@ -191,7 +193,6 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
-1. Find the app key `authority` and replace the existing value with the tenant ID of the `TodoListSPA` application copied from the Azure portal.
 1. Find the app key `redirectUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
 1. Find the app key `postLogoutRedirectUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
 1. Find the app key `resourceUri` and replace the existing value with the base address of the TodoListAPI project (by default `https://localhost:44351/api/todolist/`).

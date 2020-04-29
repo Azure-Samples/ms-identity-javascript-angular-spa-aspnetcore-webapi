@@ -13,7 +13,15 @@
         "Name": "TodoListAPI",
         "Kind": "WebApi",
         "Audience": "AzureADMultipleOrgs",
-        "HomePage": "https://localhost:44351/api/todolist/"        
+        "HomePage": "https://localhost:44351/api/todolist/",
+        "ManualSteps": [
+          {
+            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest"
+          },
+          {
+            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest"
+          }
+        ]        
       },
       {
         "Id": "client",
@@ -27,6 +35,14 @@
             "Resource": "service",
             "DelegatedPermissions": [ "access_as_user" ]
           }
+        ],
+        "ManualSteps": [
+          {
+            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest"
+          },
+          {
+            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest"
+          }
         ]
       }
     ],
@@ -39,10 +55,6 @@
           {
             "key": "Enter the domain of your Azure AD tenant, e.g. 'contoso.onmicrosoft.com'",
             "value": "$tenantName"
-          },
-          {
-            "key": "Enter 'organizations' or the Tenant Id of your Azure AD tenant",
-            "value": "$tenantId"
           },
           {
             "key": "Enter the application ID (clientId) of the 'TodoListAPI' application copied from the Azure portal",
@@ -63,10 +75,6 @@
           {
             "key": "Enter the Redirect Uri that you set on Azure Portal, like http://localhost:4200",
             "value": "client.HomePage"
-          },
-          {
-            "key": "[enter 'organizations' or the Tenant Id]",
-            "value": "$tenantId"
           },
           {
             "key": "Enter the Uri that you wish the app to redirect to after logout, like http://localhost:4200",
