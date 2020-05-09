@@ -154,7 +154,7 @@ The first thing that we need to do is to declare the unique [resource](https://d
 
 ##### Configure the  service app (TodoListAPI) to use your app registration
 
-Open the project in your IDE (like Visual Studio) to configure the code.
+Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
 1. Open the `TodoListAPI\appsettings.json` file
@@ -168,7 +168,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
    - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
-   - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
+   - In the **Redirect URI (optional)** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
@@ -187,7 +187,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 ##### Configure the  client app (TodoListSPA) to use your app registration
 
-Open the project in your IDE (like Visual Studio) to configure the code.
+Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
