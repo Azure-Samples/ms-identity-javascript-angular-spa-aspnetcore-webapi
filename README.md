@@ -36,9 +36,9 @@ This sample demonstrates a cross-platform application suite involving an Angular
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
-| `ReadmeFiles` | Sample readme files.                          |
-| `TodoListAPI` | Source code of the TodoList API.  |
-| `TodoListSPA` | Source code of the TodoList client SPA.  |
+| `ReadmeFiles`     | Sample readme files.                       |
+| `TodoListAPI`     | Source code of the TodoList API.           |
+| `TodoListSPA`     | Source code of the TodoList client SPA.    |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md`       | This README file.                          |
@@ -128,7 +128,7 @@ There are two projects in this sample. Each needs to be separately registered in
 #### Register the service app (TodoListAPI)
 
 > [!NOTE]
-> If you would like to authorize users from other tenants to use this application (i.e. multi-tenancy - learn more about [tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)), you may want to *combine* the registration steps for Web API and SPA, so that both the Web API and the SPA uses the **same** Application (client) ID. This is not needed for supporting **personal Microsoft accounts**.
+> This sample is **not** configured to be a multi-tenant sample (learn more about [tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)). If you would like to authorize users from other tenants to use this application, you may want to review [this tutorial](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnet-webapi-multitenant) first.
 
 1. Navigate to the Microsoft identity platform for developers [App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page.
 1. Select **New registration**.
