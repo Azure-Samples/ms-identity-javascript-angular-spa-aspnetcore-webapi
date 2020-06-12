@@ -96,12 +96,7 @@ namespace TodoListAPI.Controllers
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
             string owner = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             todoItem.Owner = owner;
-
-            var random = new Random();
-            todoItem.Id = random.Next();
-
             todoItem.Status = false;
-
 
             _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
