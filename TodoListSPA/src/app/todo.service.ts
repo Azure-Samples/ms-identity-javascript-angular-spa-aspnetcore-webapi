@@ -16,7 +16,7 @@ export class TodoService {
   }
 
   getTodo(id) { 
-    return this.http.get<Todo>(this.url + id);
+    return this.http.get<Todo>(this.url + '/' +  id);
   }
   
   postTodo(todo) { 
@@ -24,10 +24,10 @@ export class TodoService {
   }
 
   deleteTodo(id) {
-    return this.http.delete(this.url + id);
+    return this.http.delete(this.url + '/' + id);
   }
 
   editTodo(todo) { 
-    return this.http.put<Todo>(this.url + todo.id, todo);
+    return this.http.put<Todo>(this.url + '/' + todo.id, todo);
   }
 }
