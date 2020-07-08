@@ -28,8 +28,9 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 ![Topology](./ReadmeFiles/topology.png)
 
-> [!NOTE]
-> This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
+> :information_source: This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-ins with **personal Microsoft accounts**.
+
+> :information_source: For more information about SSO with **MSAL.js**, refer to the [documentation](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/login-user.md#silent-login-with-ssosilent).
 
 ### Contents
 
@@ -197,6 +198,7 @@ Open the project in your IDE to configure the code.
 1. Find the app key `postLogoutRedirectUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
 1. Find the app key `resourceUri` and replace the existing value with the base address of the TodoListAPI project (by default `https://localhost:44351/api/todolist/`).
 1. Find the app key `resourceScope` and replace the existing value with *Scope* you created earlier `api://{clientId}/access_as_user`.
+1. In order to enable SSO, find the app key `loginHint` and replace the existing value with the sign-in **user name** or **email** of the user. If the user already have a session that exists with the AAD authentication server, they will automatically sign-in to the application.
 
 ### Run the sample
 

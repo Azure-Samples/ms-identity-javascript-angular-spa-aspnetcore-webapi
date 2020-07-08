@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BroadcastService, MsalService } from '@azure/msal-angular';
-import { Logger, CryptoUtils } from 'msal';
+import { Logger, CryptoUtils, InteractionRequiredAuthError } from 'msal';
+import * as config from './app-config.json';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,29 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.isIframe = window !== window.parent && !window.opener;
 
+    this.authService.ssoSilent({
+      loginHint: config.loginHint
+    }).then(response => {
+      console.log(response);
+    }).catch(err => {
+      console.log(err)
+
+      if (err instanceof InteractionRequiredAuthError) { 
+        this.login();
+      }
+    });
+
     this.checkoutAccount();
+
+    this.broadcastService.subscribe("msal:ssoSuccess", payload => {
+        console.log(payload);
+        this.checkoutAccount();
+    });
+    
+    this.broadcastService.subscribe("msal:ssoFailure", payload => {
+      console.log(payload);
+      console.log('SSO failed');
+    });
 
     this.broadcastService.subscribe('msal:loginSuccess', (payload) => {
       console.log(payload);
