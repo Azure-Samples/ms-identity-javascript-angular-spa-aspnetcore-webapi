@@ -30,7 +30,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 > :information_source: This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-ins with **personal Microsoft accounts**.
 
-> :information_source: For more information about SSO with **MSAL.js**, refer to the [documentation](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/login-user.md#silent-login-with-ssosilent).
+> :information_source: For more information about SSO with **MSAL.js**, refer to the documentation [here](https://docs.microsoft.com/azure/active-directory/develop/msal-js-sso) and [here](https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/login-user.md#silent-login-with-ssosilent).
 
 ### Contents
 
