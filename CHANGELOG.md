@@ -2,8 +2,9 @@
 
 ## 08/05/2020
 
-* Updated msal-angular to 1.3.3
-* Added issue & PR templates
+* Updated msal-angular to 1.3.3.
+* Added issue & PR templates.
+* Minor README corrections.
 
 ## 06/11/2020
 
