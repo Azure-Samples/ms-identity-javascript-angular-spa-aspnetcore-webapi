@@ -2,8 +2,8 @@
     "Sample": {
       "Title": "An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API",
       "Level": 200,
-      "Client": "TodoListSPA",
-      "Service": "TodoListAPI",
+      "Client": "Angular SPA",
+      "Service": ".NET Core Web API",
       "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnetcore-webapi",
       "Endpoint": "AAD v2.0"
     },
