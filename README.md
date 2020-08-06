@@ -1,12 +1,11 @@
 ---
 page_type: sample
-author: derisen
 languages:
 - javascript
 - csharp
 products:
+- dotnet-core
 - angular
-- dotnet
 description: "This sample demonstrates an Angular single-page application calling a .NET Core Web API secured with Azure Active Directory"
 urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 ---
