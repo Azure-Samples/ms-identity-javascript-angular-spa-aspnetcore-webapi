@@ -1,8 +1,14 @@
 # CHANGELOG
 
+## 08/27/2020
+
+* Updated msal.js to 1.4.0 and msal-angular to 1.1.1.
+* Resolved implicit flow check issue in automatic registration (ps script).
+* Resolved favicon loading issue.
+
 ## 08/05/2020
 
-* Updated msal-angular to 1.3.3.
+* Updated msal.js to 1.3.3.
 * Added issue & PR templates.
 * Minor README corrections.
 

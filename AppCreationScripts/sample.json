@@ -30,6 +30,7 @@
         "Audience": "AzureADMultipleOrgs",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls": "http://localhost:4200/",
+        "AllowImplicitFlow": true,
         "RequiredResourcesAccess": [
           {
             "Resource": "service",

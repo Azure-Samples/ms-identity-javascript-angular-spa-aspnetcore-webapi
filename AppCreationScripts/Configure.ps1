@@ -7,6 +7,8 @@ param(
     [string] $azureEnvironmentName
 )
 
+#Requires -Modules AzureAD
+
 <#
  This script creates the Azure AD applications needed for this sample and updates the configuration files
  for the visual Studio projects from the data in the Azure AD applications.
@@ -201,6 +203,7 @@ Function ConfigureApplications
                                                    -HomePage "https://localhost:44351/api/todolist/" `
                                                    -AvailableToOtherTenants $True `
                                                    -PublicClient $False
+
    $serviceIdentifierUri = 'api://'+$serviceAadApplication.AppId
    Set-AzureADApplication -ObjectId $serviceAadApplication.ObjectId -IdentifierUris $serviceIdentifierUri
 
