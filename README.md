@@ -27,8 +27,7 @@ This sample demonstrates a cross-platform application suite involving an Angular
 
 ![Topology](./ReadmeFiles/topology.png)
 
-> [!NOTE]
-> This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
+> :warning: This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
 
 ### Contents
 
@@ -63,8 +62,7 @@ Using a command line interface such as VS Code integrated terminal, follow the s
 git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
 ```
 
-> [!NOTE]
-> Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
+> :warning: Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
 
 #### Step 2. Install .NET Core API dependencies
 
@@ -172,7 +170,7 @@ Open the project in your IDE to configure the code.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
-   - If you don't have a platform added, select **Add a platform** and select the **Web** option.
+   - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
    - In the **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
      the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to
      sign-in the user, and call an API.
@@ -220,7 +218,7 @@ dotnet run
 2. Sign-in using the button on top-right.
 3. Click on the "Get my tasks" button to access your todo list.
 
-> [!NOTE]
+> :information_source:
 > Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
 ## Debugging the sample

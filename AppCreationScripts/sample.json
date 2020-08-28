@@ -30,6 +30,7 @@
         "Audience": "AzureADMultipleOrgs",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls": "http://localhost:4200/",
+        "AllowImplicitFlow": true,
         "RequiredResourcesAccess": [
           {
             "Resource": "service",
@@ -81,7 +82,7 @@
             "value": "client.HomePage"
           },
           {
-            "key": "Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist/'",
+            "key": "Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist'",
             "value": "service.HomePage"
           },
           {
