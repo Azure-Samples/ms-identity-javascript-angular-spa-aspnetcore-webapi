@@ -170,7 +170,7 @@ Open the project in your IDE to configure the code.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
-   - If you don't have a platform added, select **Add a platform** and select the **Web** option.
+   - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
    - In the **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
      the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to
      sign-in the user, and call an API.
