@@ -218,8 +218,9 @@ dotnet run
 2. Sign-in using the button on top-right.
 3. Click on the "Get my tasks" button to access your todo list.
 
-> :information_source:
-> Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../issues) page.
+
+> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu)
 
 ## Debugging the sample
 
