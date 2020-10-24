@@ -12,11 +12,11 @@
         "Id": "service",
         "Name": "TodoListAPI",
         "Kind": "WebApi",
-        "Audience": "AzureADMultipleOrgs",
+        "Audience": "AzureADMyOrg",
         "HomePage": "https://localhost:44351/api/todolist/",
         "ManualSteps": [
           {
-            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest"
+            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest"
           },
           {
             "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest"
@@ -27,7 +27,7 @@
         "Id": "client",
         "Name": "TodoListSPA",
         "Kind": "SinglePageApplication",
-        "Audience": "AzureADMultipleOrgs",
+        "Audience": "AzureADMyOrg",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls": "http://localhost:4200/",
         "AllowImplicitFlow": true,
@@ -39,10 +39,10 @@
         ],
         "ManualSteps": [
           {
-            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest"
+            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest"
           },
           {
-            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest"
+            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2' in the application manifest"
           }
         ]
       }
