@@ -6,30 +6,28 @@ languages:
 products:
 - dotnet-core
 - angular
-description: "This sample demonstrates an Angular single-page application calling a .NET Core Web API secured with Azure Active Directory"
+description: "This sample demonstrates an Angular single-page application calling a .NET Core web API secured with Azure Active Directory"
 urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 ---
 
-# An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API
+# An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
 
-## About this sample
+## Overview
 
-### Overview
+This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with Azure Active Directory (Azure AD).
 
-This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory.
+## Scenario
 
-### Scenario
-
-- TodoListSPA uses [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) and [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
-- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user.
-- The access token is then used to authorize the call to the TodoListAPI.
-- TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
+- **TodoListSPA** use [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
+- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure AD for the signed-in user.
+- The access token is then used to authorize the call to the **TodoListAPI**.
+- **TodoListAPI** uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
 
 ![Topology](./ReadmeFiles/topology.png)
 
-> :warning: This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
+> :information_source: This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
 
-### Contents
+## Contents
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
@@ -67,15 +65,15 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 #### Step 2. Install .NET Core API dependencies
 
 ```console
-cd TodoListAPI
-dotnet restore
+    cd TodoListAPI
+    dotnet restore
 ```
 
 #### Step 3. Trust development certificates
 
 ```console
-dotnet dev-certs https --clean
-dotnet dev-certs https --trust
+    dotnet dev-certs https --clean
+    dotnet dev-certs https --trust
 ```
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/security/enforcing-ssl).
@@ -83,9 +81,9 @@ Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/sec
 #### Step 4. Install Angular SPA dependencies
 
 ```console
-cd ../
-cd TodoListSPA
-npm install
+    cd ../
+    cd TodoListSPA
+    npm install
 ```
 
 ### Register the sample applications with your Azure Active Directory tenant
@@ -139,7 +137,7 @@ There are two projects in this sample. Each needs to be separately registered in
 The first thing that we need to do is to declare the unique [resource](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow) URI that the clients will be using to obtain access tokens for this Api. To declare an resource URI, follow the following steps:
    - Click `Set` next to the **Application ID URI** to generate a URI that is unique for this app.
    - For this sample, accept the proposed Application ID URI (api://{clientId}) by selecting **Save**.
-1. All Apis have to publish a minimum of one [scope](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-authorization-code) for the client's to obtain an access token successfully. To publish a scope, follow the following steps:
+1. All APIs have to publish a minimum of one [scope](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-authorization-code) for the client's to obtain an access token successfully. To publish a scope, follow the following steps:
    - Select **Add a scope** button open the **Add a scope** screen and Enter the values as indicated below:
         - For **Scope name**, use `access_as_user`.
         - Select **Admins and users** options for **Who can consent?**
@@ -155,9 +153,9 @@ The first thing that we need to do is to declare the unique [resource](https://d
 Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `TodoListAPI\appsettings.json` file
-1. Find the app key `Domain` and replace the existing value with your Azure AD tenant name.
-1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the Azure portal.
+1. Open the `TodoListAPI\appsettings.json` file.
+1. Find the app key `Domain` and replace the existing value with your **Azure AD** tenant name.
+1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the **Azure** Portal.
 
 #### Register the client app (TodoListSPA)
 
@@ -172,9 +170,7 @@ Open the project in your IDE to configure the code.
 1. In the app's registration screen, select **Authentication** in the menu.
    - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
    - In the **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
-     the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to
-     sign-in the user, and call an API.
-
+     the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to sign-in the user, and call an API.
 1. Select **Save** to save your changes.
 1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
    - Click the **Add a permission** button and then,
@@ -200,27 +196,25 @@ Open the project in your IDE to configure the code.
 Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:  
 
 ```console
-cd ../
-cd TodoListSPA
-npm start
+    cd ../
+    cd TodoListSPA
+    npm start
 ```
 
 In a separate console window, execute the following commands
 
 ```console
-cd TodoListAPI
-dotnet run
+    cd TodoListAPI
+    dotnet run
 ```
 
 ### Explore the sample
 
-1. Open your browser on http://localhost:4200.
-2. Sign-in using the button on top-right.
-3. Click on the "Get my tasks" button to access your todo list.
+1. Open your browser and navigate to `http://localhost:4200`.
+2. Sign-in using the button on top-right corner.
+3. Click on the **Get my tasks** button to access your todo list.
 
-> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../issues) page.
-
-> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu)
+> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu). If the sample did not work for you as expected, then please reach out to us using the [GitHub Issues](../issues) page.
 
 ## Debugging the sample
 

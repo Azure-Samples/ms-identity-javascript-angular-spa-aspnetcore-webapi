@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 10/23/2020
+
+* Updated msal.js to 1.4.2
+* Updated M.I.W to 1.2
+
 ## 08/27/2020
 
 * Updated msal.js to 1.4.0 and msal-angular to 1.1.1.

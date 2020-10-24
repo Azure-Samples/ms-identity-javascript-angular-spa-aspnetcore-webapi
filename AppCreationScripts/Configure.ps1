@@ -7,7 +7,7 @@ param(
     [string] $azureEnvironmentName
 )
 
-#Requires -Modules AzureAD
+#Requires -Modules AzureAD -RunAsAdministrator
 
 <#
  This script creates the Azure AD applications needed for this sample and updates the configuration files
@@ -201,7 +201,6 @@ Function ConfigureApplications
    # create the application 
    $serviceAadApplication = New-AzureADApplication -DisplayName "TodoListAPI" `
                                                    -HomePage "https://localhost:44351/api/todolist/" `
-                                                   -AvailableToOtherTenants $True `
                                                    -PublicClient $False
 
    $serviceIdentifierUri = 'api://'+$serviceAadApplication.AppId
@@ -264,7 +263,6 @@ Function ConfigureApplications
                                                   -HomePage "http://localhost:4200/" `
                                                   -ReplyUrls "http://localhost:4200/" `
                                                   -IdentifierUris "https://$tenantName/TodoListSPA" `
-                                                  -AvailableToOtherTenants $True `
                                                   -Oauth2AllowImplicitFlow $true `
                                                   -PublicClient $False
 
@@ -317,12 +315,12 @@ Function ConfigureApplications
    Write-Host "IMPORTANT: Please follow the instructions below to complete a few manual step(s) in the Azure portal":
    Write-Host "- For 'service'"
    Write-Host "  - Navigate to '$servicePortalUrl'"
-   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest" -ForegroundColor Red 
+   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest" -ForegroundColor Red 
    Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
    Write-Host "- For 'client'"
    Write-Host "  - Navigate to '$clientPortalUrl'"
-   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest" -ForegroundColor Red 
-   Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
+   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest" -ForegroundColor Red 
+   Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2' in the application manifest" -ForegroundColor Red 
 
    Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
      
