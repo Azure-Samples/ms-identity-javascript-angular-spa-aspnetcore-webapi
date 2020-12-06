@@ -2,30 +2,55 @@
 page_type: sample
 languages:
 - javascript
+- typescript
 - csharp
 products:
-- dotnet-core
 - angular
-description: "This sample demonstrates an Angular single-page application calling a .NET Core web API secured with Azure Active Directory"
+- dotnet-core
+- msal-angular
+- microsoft-identity-web
+- azure-active-directory
+- microsoft-identity-platform
+description: "This sample demonstrates an Angular single-page application calling a .NET Core web API secured with Azure Active Directory using MSAL Angular v2"
 urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 ---
 
-# An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
+# An Angular single-page application that authenticates users against Azure AD and calls a protected ASP.NET Core web API
+
+ 1. [Overview](#overview)
+ 1. [Scenario](#scenario)
+ 1. [Contents](#contents)
+ 1. [Prerequisites](#prerequisites)
+ 1. [Setup](#setup)
+ 1. [Registration](#registration)
+ 1. [Running the sample](#running-the-sample)
+ 1. [Explore the sample](#explore-the-sample)
+ 1. [About the code](#about-the-code)
+ 1. [Deployment](#deployment)
+ 1. [More information](#more-information)
+ 1. [Community Help and Support](#community-help-and-support)
+ 1. [Contributing](#contributing)
+
+This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with [Azure Active Directory]() (Azure AD) using the [Microsoft Authentication Library for JavaScript - Angular]() (MSAL Angular).
 
 ## Overview
 
-This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with Azure Active Directory (Azure AD).
+This sample demonstrates the following AAD and MSAL workflows:
+
+- How to configure authentication parameters.
+- How to sign-in and sign-out.
+- How to protect a web API.
+- How to acquire an access token.
+- How to make an API call with the access token.
 
 ## Scenario
 
-- **TodoListSPA** use [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
-- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure AD for the signed-in user.
-- The access token is then used to authorize the call to the **TodoListAPI**.
+- **TodoListSPA** use [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to sign-in a user.
+- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from **Azure AD** for the signed-in user.
+- The **access token** is then used to authorize the call to the **TodoListAPI**.
 - **TodoListAPI** uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
 
 ![Topology](./ReadmeFiles/topology.png)
-
-> :information_source: This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-in with **personal Microsoft accounts**.
 
 ## Contents
 
@@ -40,21 +65,20 @@ This sample demonstrates a cross-platform application suite involving an Angular
 | `README.md`       | This README file.                          |
 | `LICENSE`         | The license for the sample.                |
 
-## Setup
-
-### Prerequisites
+## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
 - [Angular-cli](https://cli.angular.io/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
-- We recommend [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
+- [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
+- [VS Code Azure Tools Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack) extension is recommended for interacting with **Azure** through VS Code interface.
 - An Azure Active Directory (Azure AD) tenant. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 
-### Steps
+## Setup
 
 Using a command line interface such as VS Code integrated terminal, follow the steps below:
 
-#### Step 1. Clone or download this repository
+### Step 1. Clone or download this repository
 
 ```console
 git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
@@ -62,14 +86,14 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 
 > :warning: Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
 
-#### Step 2. Install .NET Core API dependencies
+### Step 2. Install .NET Core API dependencies
 
 ```console
     cd TodoListAPI
     dotnet restore
 ```
 
-#### Step 3. Trust development certificates
+### Step 3. Trust development certificates
 
 ```console
     dotnet dev-certs https --clean
@@ -78,13 +102,15 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/security/enforcing-ssl).
 
-#### Step 4. Install Angular SPA dependencies
+### Step 4. Install Angular SPA dependencies
 
 ```console
     cd ../
     cd TodoListSPA
     npm install
 ```
+
+## Registration
 
 ### Register the sample applications with your Azure Active Directory tenant
 
@@ -120,7 +146,7 @@ There are two projects in this sample. Each needs to be separately registered in
 
 </details>
 
-#### Register the service app (TodoListAPI)
+### Register the service app (TodoListAPI)
 
 > [!NOTE]
 > This sample is **not** configured to be a multi-tenant sample (learn more about [tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)). If you would like to authorize users from other tenants to use this application, you may want to review [this tutorial](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnet-webapi-multitenant) first.
@@ -129,7 +155,7 @@ There are two projects in this sample. Each needs to be separately registered in
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListAPI`.
-   - Under **Supported account types**, select **Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)**.
+   - Under **Supported account types**, select **Accounts in this organizational directory only**.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. Select **Save** to save your changes.
@@ -148,7 +174,7 @@ The first thing that we need to do is to declare the unique [resource](https://d
         - Keep **State** as **Enabled**
         - Click on the **Add scope** button on the bottom to save this scope.
 
-##### Configure the  service app (TodoListAPI) to use your app registration
+#### Configure the  service app (TodoListAPI) to use your app registration
 
 Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
@@ -157,41 +183,36 @@ Open the project in your IDE to configure the code.
 1. Find the app key `Domain` and replace the existing value with your **Azure AD** tenant name.
 1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the **Azure** Portal.
 
-#### Register the client app (TodoListSPA)
+### Register the client app (TodoListSPA)
 
 1. Navigate to the Microsoft identity platform for developers [App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page.
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
-   - Under **Supported account types**, select **Accounts in any organizational directory (Any Azure AD directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)**.
+   - Under **Supported account types**, select **Accounts in this organizational directory only**.
    - In the **Redirect URI (optional)** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
-1. In the app's registration screen, select **Authentication** in the menu.
-   - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
-   - In the **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
-     the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to sign-in the user, and call an API.
-1. Select **Save** to save your changes.
-1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
+1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the APIs that your application needs.
    - Click the **Add a permission** button and then,
    - Ensure that the **My APIs** tab is selected.
    - In the list of APIs, select the API `TodoListAPI`.
    - In the **Delegated permissions** section, select the **access_as_user** in the list. Use the search box if necessary.
    - Click on the **Add permissions** button at the bottom.
 
-##### Configure the  client app (TodoListSPA) to use your app registration
+#### Configure the  client app (TodoListSPA) to use your app registration
 
 Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `TodoListSPA\src\app\app-config.json` file
+1. Open the `TodoListSPA\src\app\auth-config.json` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
-1. Find the app key `redirectUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
-1. Find the app key `postLogoutRedirectUri` and replace the existing value with the base address of the TodoListSPA project (by default `http://localhost:4200/`).
-1. Find the app key `resourceUri` and replace the existing value with the base address of the TodoListAPI project (by default `https://localhost:44351/api/todolist`).
+1. Find the app key `redirectUri` and replace the existing value with the base address of the `TodoListSPA` project (by default `http://localhost:4200/`).
+1. Find the app key `postLogoutRedirectUri` and replace the existing value with the base address of the `TodoListSPA` project (by default `http://localhost:4200/`).
+1. Find the app key `resourceUri` and replace the existing value with the base address of the `TodoListAPI` project (by default `https://localhost:44351/api/todolist`).
 1. Find the app key `resourceScope` and replace the existing value with *Scope* you created earlier `api://{clientId}/access_as_user`.
 
-### Run the sample
+## Run the sample
 
 Using a command line interface such as VS Code integrated terminal, locate the application directory. Then:  
 
@@ -208,37 +229,117 @@ In a separate console window, execute the following commands
     dotnet run
 ```
 
-### Explore the sample
+## Explore the sample
 
 1. Open your browser and navigate to `http://localhost:4200`.
 2. Sign-in using the button on top-right corner.
 3. Click on the **Get my tasks** button to access your todo list.
 
-> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu). If the sample did not work for you as expected, then please reach out to us using the [GitHub Issues](../issues) page.
+> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu). If the sample did not work for you as expected, then please reach out to us using the [GitHub Issues](../../issues) page.
 
-## Debugging the sample
+### Debugging the sample
 
 To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
 
 Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/dotnet/core/tutorials/with-visual-studio-code).
 
-## Key concepts
+## About the code
 
-This sample demonstrates the following AAD and MSAL workflows:
+> - Describe where the code uses auth libraries, or calls the graph
+> - Describe specific aspects (e.g. caching, validation etc.)
 
-- How to protect a Web API.
-- How to configure application parameters.
-- How to sign-in.
-- How to sign-out.
-- How to acquire an access token.
-- How to make an API call with the access token.
+## Deployment
+
+### Deploying web API to Azure App Services
+
+There is one web API in this sample. To deploy it to **Azure App Services**, you'll need to:
+
+- create an **Azure App Service**
+- publish the projects to the **App Services**, and
+- update its client(s) to call the website instead of the local environment.
+
+#### Publish your files (TodoListAPI)
+
+1. Sign-in to **App Service** using an Azure AD Account.
+1. Open the `TodoListAPI` project folder.
+1. Choose **View** > **Terminal** from the main menu.
+1. The terminal opens in the `TodoListAPI` folder.
+1. Run the following command:
+
+    ```console
+    dotnet publish --configuration Release
+    ```
+
+1. Publish folder is created under path `bin/Release/<Enter_Framework_FolderName>`.
+1. Right-click on **Publish** folder and select **Deploy to Web App**.
+1. Select **Create New Web App**, enter a unique name for the app.
+1. Select **Windows** as the OS. Press **Enter**.
+
+#### Disable Azure App Services default authentication (TodoListAPI)
+
+1. Go to [Azure Portal](https://portal.azure.com), and locate your project there.
+    - On the Settings tab, select **Authentication/Authorization**. Make sure `App Service Authentication` is Off. Select **Save**.
+1. Browse your website. If you see the default web page of the project, the publication was successful.
+
+#### Enable cross-origin resource sharing (CORS) (TodoListAPI)
+
+1. Go to [Azure Portal](https://portal.azure.com), and locate your project there.
+    - On the API tab, select **CORS**. Check the box **Enable Access-Control-Allow-Credentials**.
+    - Under **Allowed origins**, add the coordinates of your published website.
+
+### Deploying SPA to Azure Storage
+
+There is one single-page application in this sample. To deploy it to **Azure Storage**, you'll need to:
+
+- create an Azure Storage blob and obtain website coordinates
+- build your project and upload it to Azure Storage blob
+- update config files with website coordinates
+
+> :information_source: If you would like to use **VS Code Azure Tools** extension for deployment, [watch the tutorial](https://docs.microsoft.com/azure/developer/javascript/tutorial-vscode-static-website-node-01) offered by Microsoft Docs.
+
+#### Build and upload the `TodoListSPA` to an Azure Storage blob
+
+Build your project to get a distributable files folder, where your built `html`, `css` and `javascript` files will be generated. Then follow the steps below:
+
+> :warning: When uploading, make sure you upload the contents of your distributable files folder and **not** the entire folder itself.
+
+> :information_source: If you don't have an account already, see: [How to create a storage account](https://docs.microsoft.com/azure/storage/common/storage-account-create).
+
+1. Sign in to the [Azure Portal](https://portal.azure.com).
+1. Locate your storage account and display the account overview.
+1. Select **Static website** to display the configuration page for static websites.
+1. Select **Enabled** to enable static website hosting for the storage account.
+1. In the **Index document name** field, specify a default index page (For example: `index.html`).
+1. The default **index page** is displayed when a user navigates to the root of your static website.
+1. Select **Save**. The Azure Portal now displays your static website endpoint. Make a note of the **Primary endpoint field**.
+1. In the `TodoListSPA` project source code, update your configuration file with the **Primary endpoint field** as your new **Redirect URI** (you will register this URI later).
+1. Next, select **Storage Explorer**.
+1. Expand the **BLOB CONTAINERS** node, and then select the `$web` container.
+1. Choose the **Upload** button to upload files.
+1. If you intend for the browser to display the contents of file, make sure that the content type of that file is set to `text/html`.
+1. In the pane that appears beside the **account overview page** of your storage account, select **Static Website**. The URL of your site appears in the **Primary endpoint field**. In the next section, you will register this URI.
+
+##### Update the Azure AD app registration for TodoListSPA
+
+1. Navigate back to to the [Azure Portal](https://portal.azure.com).
+1. In the left-hand navigation pane, select the **Azure Active Directory** service, and then select **App registrations**.
+1. In the resulting screen, select `TodoListSPA`.
+1. In the app's registration screen, select **Authentication** in the menu.
+   - In the **Redirect URIs** section, update the reply URLs to match the site URL of your Azure deployment. For example:
+      - `https://TodoListSPA.azurewebsites.net/`
+
+### Update authentication configuration parameters (TodoListSPA)
+
+1. In your IDE, locate the `TodoListSPA` project. Then, open `TodoListSPA\src\app\auth-config.json`.
+2. Find the key for **redirect URI** and replace its value with the address of the web app you published, for example, [https://TodoListSPA.azurewebsites.net](https://TodoListSPA.azurewebsites.net).
+3. Find the key for **web API endpoint** and replace its value with the address of the web API you published, for example, [https://TodoListAPI.azurewebsites.net/api](https://TodoListAPI.azurewebsites.net/api/todolist).
 
 ## More information
 
 For more information, visit the following links:
 
 - Articles about the Microsoft identity platform are at [http://aka.ms/aaddevv2](http://aka.ms/aaddevv2), with a focus on:
-  - [The OAuth 2.0 Implicit Grant in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow)
+  - [The OAuth 2.0 Authorization Code Grant in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow)
   - [The OpenID Connect protocol](https://docs.microsoft.com/azure/active-directory/develop/v2-protocols-oidc)
   - [Azure AD OAuth Bearer protocol](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols)
   - [Access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens)

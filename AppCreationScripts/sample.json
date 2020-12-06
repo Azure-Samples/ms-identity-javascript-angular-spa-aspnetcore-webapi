@@ -13,15 +13,7 @@
         "Name": "TodoListAPI",
         "Kind": "WebApi",
         "Audience": "AzureADMyOrg",
-        "HomePage": "https://localhost:44351/api/todolist/",
-        "ManualSteps": [
-          {
-            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest"
-          },
-          {
-            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest"
-          }
-        ]        
+        "HomePage": "https://localhost:44351/api/todolist/"        
       },
       {
         "Id": "client",
@@ -30,7 +22,6 @@
         "Audience": "AzureADMyOrg",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls": "http://localhost:4200/",
-        "AllowImplicitFlow": true,
         "RequiredResourcesAccess": [
           {
             "Resource": "service",
@@ -39,10 +30,7 @@
         ],
         "ManualSteps": [
           {
-            "Comment":  "Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest"
-          },
-          {
-            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2' in the application manifest"
+            "Comment":  "Navigate to the portal and set the 'replyUrlsWithType' to 'Spa' in the application manifest"
           }
         ]
       }
@@ -67,7 +55,7 @@
       {
         "App": "client",
         "SettingKind": "Replace",
-        "SettingFile": "\\..\\TodoListSPA\\src\\app\\app-config.json",
+        "SettingFile": "\\..\\TodoListSPA\\src\\app\\auth-config.json",
         "Mappings": [
           {
             "key": "Enter the Client Id (aka 'Application ID')",
@@ -86,7 +74,7 @@
             "value": "service.HomePage"
           },
           {
-            "key": "Enter the API scopes as declared in the app registration 'Expose an Api' blade in the form of 'api://{clientId}/access_as_user'",
+            "key": "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of 'api://{clientId}/access_as_user'",
             "value": "service.Scope"
           }
         ]
