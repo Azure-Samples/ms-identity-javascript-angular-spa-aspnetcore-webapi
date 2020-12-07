@@ -12,11 +12,7 @@ import { Todo } from '../todo';
 })
 export class TodoViewComponent implements OnInit {
   
-  todo: Todo = {
-    id: 0,
-    description: "",
-    status: true,
-  };
+  todo?: Todo;
 
   todos: Todo[] = [];
 

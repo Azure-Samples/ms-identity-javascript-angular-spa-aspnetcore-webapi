@@ -3,7 +3,7 @@
       "Title": "An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API",
       "Level": 200,
       "Client": "Angular SPA",
-      "Service": ".NET Core Web API",
+      "Service": ".NET Core web API",
       "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnetcore-webapi",
       "Endpoint": "AAD v2.0"
     },
@@ -46,8 +46,12 @@
             "value": "$tenantName"
           },
           {
-            "key": "Enter the application ID (clientId) of the 'TodoListAPI' application copied from the Azure portal",
+            "key": "Enter the Client ID (aka 'Application ID')",
             "value": "service.AppId"
+          },
+          {
+            "key": "Enter the tenant ID",
+            "value": "$tenantId"
           }
         ]
       },
@@ -58,23 +62,27 @@
         "SettingFile": "\\..\\TodoListSPA\\src\\app\\auth-config.json",
         "Mappings": [
           {
-            "key": "Enter the Client Id (aka 'Application ID')",
+            "key": "Enter the Client ID (aka 'Application ID')",
             "value": "client.AppId"
           },
           {
-            "key": "Enter the Redirect Uri that you set on Azure Portal, like http://localhost:4200",
+            "key": "Enter the tenant ID",
+            "value": "$tenantId"
+          },
+          {
+            "key": "Enter the Redirect URI that you set on Azure Portal, e.g. http://localhost:4200",
+            "value": "client.ReplyUrls"
+          },
+          {
+            "key": "Enter the URI that you wish the app to redirect to after logout, e.g. http://localhost:4200",
             "value": "client.HomePage"
           },
           {
-            "key": "Enter the Uri that you wish the app to redirect to after logout, like http://localhost:4200",
-            "value": "client.HomePage"
-          },
-          {
-            "key": "Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist'",
+            "key": "Enter the endpoint address of TodoList web API, e.g. 'https://localhost:44351/api/todolist'",
             "value": "service.HomePage"
           },
           {
-            "key": "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of 'api://{clientId}/access_as_user'",
+            "key": "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of 'api://{service-clientId}/access_as_user'",
             "value": "service.Scope"
           }
         ]

@@ -1,16 +1,16 @@
 {
   "credentials": {
-    "clientId": "389fdb0a-c390-4d25-af5a-d2dec4c95444",
-    "tenantId": "cbaf2168-de14-4c72-9d88-f5f05366dbef"
+    "clientId": "Enter the Client ID (aka 'Application ID')",
+    "tenantId": "Enter the tenant ID"
   },
   "configuration": {
-    "redirectUri": "http://localhost:4200",
-    "postLogoutRedirectUri": "http://localhost:4200"
+    "redirectUri": "Enter the Redirect URI that you set on Azure Portal, e.g. http://localhost:4200",
+    "postLogoutRedirectUri": "Enter the URI that you wish the app to redirect to after logout, e.g. http://localhost:4200"
   },
   "resources": {
     "todoListApi": {
-      "resourceUri": "https://localhost:44351/api/todolist",
-      "resourceScopes": ["api://d6c8b21d-69cd-46eb-898b-806fee76f579/access_as_user"]
+      "resourceUri": "Enter the endpoint address of TodoList web API, e.g. 'https://localhost:44351/api/todolist'",
+      "resourceScopes": [ "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of 'api://{service-clientId}/access_as_user'" ]
     }
   }     
 }

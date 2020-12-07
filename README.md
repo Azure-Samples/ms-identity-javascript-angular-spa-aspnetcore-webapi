@@ -31,11 +31,11 @@ urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
 
-This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with [Azure Active Directory]() (Azure AD) using the [Microsoft Authentication Library for JavaScript - Angular]() (MSAL Angular).
+This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with [Azure Active Directory](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) using the [Microsoft Authentication Library for Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/msal-angular-v2/lib/msal-angular) (MSAL Angular).
 
 ## Overview
 
-This sample demonstrates the following AAD and MSAL workflows:
+This sample demonstrates the following Azure AD and MSAL workflows:
 
 - How to configure authentication parameters.
 - How to sign-in and sign-out.
@@ -180,8 +180,9 @@ Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
 1. Open the `TodoListAPI\appsettings.json` file.
-1. Find the app key `Domain` and replace the existing value with your **Azure AD** tenant name.
-1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the **Azure** Portal.
+1. Find the key `Domain` and replace the existing value with your Azure AD tenant name.
+1. Find the key `ClientId` and replace the existing value with the application ID (clientId) of `TodoListAPI` app copied from the Azure Portal.
+1. Find the key `TenantId` and replace the existing value with your Azure AD tenant ID.
 
 ### Register the client app (TodoListSPA)
 
@@ -205,12 +206,13 @@ Open the project in your IDE to configure the code.
 Open the project in your IDE to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `TodoListSPA\src\app\auth-config.json` file
-1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
-1. Find the app key `redirectUri` and replace the existing value with the base address of the `TodoListSPA` project (by default `http://localhost:4200/`).
-1. Find the app key `postLogoutRedirectUri` and replace the existing value with the base address of the `TodoListSPA` project (by default `http://localhost:4200/`).
-1. Find the app key `resourceUri` and replace the existing value with the base address of the `TodoListAPI` project (by default `https://localhost:44351/api/todolist`).
-1. Find the app key `resourceScope` and replace the existing value with *Scope* you created earlier `api://{clientId}/access_as_user`.
+1. Open the `TodoListSPA\src\app\auth-config.json` file.
+1. Find the key `clientId` and replace the existing value with the application ID (clientId) of `TodoListSPA` app copied from the Azure Portal.
+1. Find the key `tenantId` and replace the existing value with your Azure AD tenant ID.
+1. Find the key `redirectUri` and replace the existing value with the Redirect URI for `TodoListSPA`. (by default `http://localhost:4200/`).
+1. Find the key `postLogoutRedirectUri` and replace the existing value with the base address of `TodoListSPA` (by default `http://localhost:4200/`.
+1. Find the key `resourceUri` and replace the existing value with the base address of `TodoListAPI` (by default `https://localhost:44351/api/todolist/`).
+1. Find the app key `resourceScopes` and replace the existing value with *scope* you created earlier `api://{clientId}/access_as_user`.
 
 ## Run the sample
 
@@ -235,11 +237,15 @@ In a separate console window, execute the following commands
 2. Sign-in using the button on top-right corner.
 3. Click on the **Get my tasks** button to access your todo list.
 
+![Screenshot](./ReadmeFiles/screenshot.png)
+
 > :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu). If the sample did not work for you as expected, then please reach out to us using the [GitHub Issues](../../issues) page.
+
+
 
 ### Debugging the sample
 
-To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
+To debug the .NET Core web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
 
 Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/dotnet/core/tutorials/with-visual-studio-code).
 
@@ -255,8 +261,7 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 There is one web API in this sample. To deploy it to **Azure App Services**, you'll need to:
 
 - create an **Azure App Service**
-- publish the projects to the **App Services**, and
-- update its client(s) to call the website instead of the local environment.
+- publish the projects to the **App Services**
 
 #### Publish your files (TodoListAPI)
 
@@ -343,7 +348,7 @@ For more information, visit the following links:
   - [The OpenID Connect protocol](https://docs.microsoft.com/azure/active-directory/develop/v2-protocols-oidc)
   - [Azure AD OAuth Bearer protocol](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols)
   - [Access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens)
-  - [Secure a Web API with Azure AD](https://docs.microsoft.com/azure/active-directory/develop/scenario-protected-web-api-overview)
+  - [Secure a web API with Azure AD](https://docs.microsoft.com/azure/active-directory/develop/scenario-protected-web-api-overview)
 
 - To lean more about the application registration, visit:
   - [Quickstart: Register an application with the Microsoft identity platform (Preview)](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
