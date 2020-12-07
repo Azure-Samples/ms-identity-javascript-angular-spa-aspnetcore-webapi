@@ -4,11 +4,14 @@ import { AppComponent } from './app.component';
 import { MSAL_INSTANCE, MsalService } from '@azure/msal-angular';
 import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
+import * as auth from './auth-config.json';
+
 function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '6226576d-37e9-49eb-b201-ec1eeb0029b6',
-      redirectUri: 'http://localhost:4200'
+      clientId: auth.credentials.clientId,
+      authority: 'https://login.microsoftonline.com/' + auth.credentials.tenantId,
+      redirectUri: auth.configuration.redirectUri
     }
   });
 }
@@ -38,16 +41,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Angular 11 - Angular v2 Sample'`, () => {
+  it(`should have as title 'Microsoft identity platform'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Angular 11 - Angular v2 Sample');
+    expect(app.title).toEqual('Microsoft identity platform');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.title').textContent).toContain('Angular 11 - Angular v2 Sample');
+    expect(compiled.querySelector('.title').textContent).toContain('Microsoft identity platform');
   });
 });
