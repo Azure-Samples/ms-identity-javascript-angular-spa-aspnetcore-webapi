@@ -23,7 +23,7 @@ urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
  1. [Prerequisites](#prerequisites)
  1. [Setup](#setup)
  1. [Registration](#registration)
- 1. [Running the sample](#running-the-sample)
+ 1. [Running the sample](#run-the-sample)
  1. [Explore the sample](#explore-the-sample)
  1. [About the code](#about-the-code)
  1. [Deployment](#deployment)
