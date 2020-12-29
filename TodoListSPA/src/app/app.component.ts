@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, Injectable } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { EventMessage, EventType, InteractionType } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
@@ -26,6 +26,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.checkAccount();
 
+    /**
+     * You can subscribe to MSAL events as shown below. For more info,
+     * visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/events.md
+     */
     this.msalBroadcastService.msalSubject$
       .pipe(
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS || msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS),
@@ -62,6 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  // unsubscribe to events when component is destroyed
   ngOnDestroy(): void {
     this._destroying$.next(undefined);
     this._destroying$.complete();

@@ -78,7 +78,7 @@
             "value": "client.HomePage"
           },
           {
-            "key": "Enter the endpoint address of TodoList web API, e.g. 'https://localhost:44351/api/todolist'",
+            "key": "Enter the endpoint address of TodoList web API, e.g. https://localhost:44351/api/todolist",
             "value": "service.HomePage"
           },
           {

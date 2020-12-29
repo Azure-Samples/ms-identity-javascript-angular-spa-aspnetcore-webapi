@@ -34,7 +34,8 @@ namespace TodoListAPI
 
             services.AddControllers();
             
-            // Allowing CORS for all domains and methods for the purpose of sample
+            // Allowing CORS for all domains and methods for the purpose of the sample
+            // In production, modify this with the actual domains you want to allow
             services.AddCors(o => o.AddPolicy("default", builder =>
             {
                 builder.AllowAnyOrigin()

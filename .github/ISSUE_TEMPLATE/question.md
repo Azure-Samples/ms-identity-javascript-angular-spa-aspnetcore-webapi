@@ -13,6 +13,7 @@ Please follow the issue template below. Failure to do so will result in a delay 
 
 - [ ] `@azure/msal-angular@0.x.x`
 - [ ] `@azure/msal-angular@1.x.x`
+- [ ] `@azure/msal-angular@2.x.x`
 
 ## Description
 

@@ -28,6 +28,11 @@ import * as auth from './auth-config.json';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
 
+
+/**
+ * Here we pass the configuration parameters to create an MSAL instance.
+ * For more info, visit: https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/configuration.md
+ */
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
@@ -42,6 +47,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   });
 }
 
+/**
+ * MSAL Angular will automatically retrieve tokens for resources 
+ * added to protectedResourceMap. For more info, visit: 
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-angular/docs/v2-docs/initialization.md#get-tokens-for-web-api-calls
+ */
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(auth.resources.todoListApi.resourceUri, auth.resources.todoListApi.resourceScopes);
@@ -52,6 +62,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   };
 }
 
+// set your default interaction type here
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { interactionType: InteractionType.Redirect };
 }
@@ -70,14 +81,10 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     FormsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatListModule,
     HttpClientModule,
     MsalModule,
-    MatButtonModule,
     MatListModule,
     MatCardModule,
-    AppRoutingModule,
-    MsalModule,
     MatInputModule,
     MatTableModule,
     MatFormFieldModule,

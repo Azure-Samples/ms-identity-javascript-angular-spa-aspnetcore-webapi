@@ -13,6 +13,7 @@ assignees: derisen
 
 - [ ] `@azure/msal-angular@0.x.x`
 - [ ] `@azure/msal-angular@1.x.x`
+- [ ] `@azure/msal-angular@2.x.x`
 
 **Important**: Please fill in your exact version number above, e.g. `msal@1.1.3`.
 

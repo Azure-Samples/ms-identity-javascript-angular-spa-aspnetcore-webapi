@@ -9,7 +9,7 @@
   },
   "resources": {
     "todoListApi": {
-      "resourceUri": "Enter the endpoint address of TodoList web API, e.g. 'https://localhost:44351/api/todolist'",
+      "resourceUri": "Enter the endpoint address of TodoList web API, e.g. https://localhost:44351/api/todolist",
       "resourceScopes": [ "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of 'api://{service-clientId}/access_as_user'" ]
     }
   }     

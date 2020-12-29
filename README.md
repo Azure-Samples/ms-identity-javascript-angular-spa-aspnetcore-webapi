@@ -10,7 +10,6 @@ products:
 - msal-angular
 - microsoft-identity-web
 - azure-active-directory
-- microsoft-identity-platform
 description: "This sample demonstrates an Angular single-page application calling a .NET Core web API secured with Azure Active Directory using MSAL Angular v2"
 urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
 ---
@@ -31,17 +30,9 @@ urlFragment: "ms-identity-javascript-angular-spa-aspnetcore-webapi"
  1. [Community Help and Support](#community-help-and-support)
  1. [Contributing](#contributing)
 
-This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with [Azure Active Directory](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) using the [Microsoft Authentication Library for Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/msal-angular-v2/lib/msal-angular) (MSAL Angular).
-
 ## Overview
 
-This sample demonstrates the following Azure AD and MSAL workflows:
-
-- How to configure authentication parameters.
-- How to sign-in and sign-out.
-- How to protect a web API.
-- How to acquire an access token.
-- How to make an API call with the access token.
+This sample demonstrates a cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with [Azure Active Directory](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) using the [Microsoft Authentication Library for Angular (Preview)](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) (MSAL Angular).
 
 ## Scenario
 
@@ -68,7 +59,6 @@ This sample demonstrates the following Azure AD and MSAL workflows:
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
-- [Angular-cli](https://cli.angular.io/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
 - [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
 - [VS Code Azure Tools Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack) extension is recommended for interacting with **Azure** through VS Code interface.
@@ -159,8 +149,8 @@ There are two projects in this sample. Each needs to be separately registered in
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. Select **Save** to save your changes.
-1. In the app's registration screen, click on the **Expose an API** blade to the left to open the page where you can declare the parameters to expose this app as an Api for which client applications can obtain [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for.
-The first thing that we need to do is to declare the unique [resource](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow) URI that the clients will be using to obtain access tokens for this Api. To declare an resource URI, follow the following steps:
+1. In the app's registration screen, click on the **Expose an API** blade to the left to open the page where you can declare the parameters to expose this app as an API for which client applications can obtain [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for.
+The first thing that we need to do is to declare the unique [resource](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow) URI that the clients will be using to obtain access tokens for this API. To declare an resource URI, follow the following steps:
    - Click `Set` next to the **Application ID URI** to generate a URI that is unique for this app.
    - For this sample, accept the proposed Application ID URI (api://{clientId}) by selecting **Save**.
 1. All APIs have to publish a minimum of one [scope](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-authorization-code) for the client's to obtain an access token successfully. To publish a scope, follow the following steps:
@@ -241,8 +231,6 @@ In a separate console window, execute the following commands
 
 > :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUMVk5MkZLNEdEV1MwRzVOWDZDVjdEQ01NSiQlQCN0PWcu). If the sample did not work for you as expected, then please reach out to us using the [GitHub Issues](../../issues) page.
 
-
-
 ### Debugging the sample
 
 To debug the .NET Core web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
@@ -251,8 +239,71 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 
 ## About the code
 
-> - Describe where the code uses auth libraries, or calls the graph
-> - Describe specific aspects (e.g. caching, validation etc.)
+### Initialization
+
+Initialize MSAL Angular client by passing the configuration parameters in [auth-config.json](./TodoListSPA/src/app/auth-config.json) to the MSALInstanceFactory in [app.module.ts](./TodoListSPA/src/app/app.module.ts). This application is configured to be a single-tenant app on Azure AD:
+
+```typescript
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+      clientId: auth.credentials.clientId,
+      authority: 'https://login.microsoftonline.com/' + auth.credentials.tenantId,
+      redirectUri: auth.configuration.redirectUri
+    },
+    cache: {
+      cacheLocation: BrowserCacheLocation.LocalStorage,
+      storeAuthStateInCookie: isIE, // set to true for IE 11
+    },
+  });
+}
+```
+
+Then, in your components, MSAL Angular client will be available as `MsalService`:
+
+```typescript
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  constructor(private authService: MsalService) {}
+}
+
+  login() {
+      this.authService.loginRedirect();
+    }
+```
+
+### Calling a web API
+
+Set up an **MSALInterceptor** to keep track of the protected resources that you need access to. This will intercept HTTP calls and automatically retrieve necessary tokens, as defined in `protectedResourceMap`.
+
+```typescript
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+  protectedResourceMap.set(auth.resources.todoListApi.resourceUri, auth.resources.todoListApi.resourceScopes);
+
+  return {
+    interactionType: InteractionType.Redirect,
+    protectedResourceMap
+  };
+}
+```
+
+### CORS configuration
+
+You need to set **CORS** policy to be able to call the **TodoListAPI** in [Startup.cs](./TodoListAPI/Startup.cs). For the purpose of this sample, we are setting it to allow *any* domain and methods. In production, you should modify this to allow only the domains and methods you designate.
+
+```csharp
+    services.AddCors(o => o.AddPolicy("default", builder =>
+    {
+        builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+    }));
+```
 
 ## Deployment
 
@@ -304,13 +355,20 @@ There is one single-page application in this sample. To deploy it to **Azure Sto
 
 #### Build and upload the `TodoListSPA` to an Azure Storage blob
 
-Build your project to get a distributable files folder, where your built `html`, `css` and `javascript` files will be generated. Then follow the steps below:
+Build your project to get a distributable files folder, where your built `html`, `css` and `javascript` files will be generated.
+
+```console
+    cd TodoListSPA
+    npm run build
+```
+
+Then follow the steps below:
 
 > :warning: When uploading, make sure you upload the contents of your distributable files folder and **not** the entire folder itself.
 
 > :information_source: If you don't have an account already, see: [How to create a storage account](https://docs.microsoft.com/azure/storage/common/storage-account-create).
 
-1. Sign in to the [Azure Portal](https://portal.azure.com).
+1. Sign in to the [Azure portal](https://portal.azure.com).
 1. Locate your storage account and display the account overview.
 1. Select **Static website** to display the configuration page for static websites.
 1. Select **Enabled** to enable static website hosting for the storage account.
@@ -326,7 +384,7 @@ Build your project to get a distributable files folder, where your built `html`,
 
 ##### Update the Azure AD app registration for TodoListSPA
 
-1. Navigate back to to the [Azure Portal](https://portal.azure.com).
+1. Navigate back to to the [Azure portal](https://portal.azure.com).
 1. In the left-hand navigation pane, select the **Azure Active Directory** service, and then select **App registrations**.
 1. In the resulting screen, select `TodoListSPA`.
 1. In the app's registration screen, select **Authentication** in the menu.

@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -18,7 +17,7 @@ export class TodoViewComponent implements OnInit {
 
   displayedColumns = ['status', 'description', 'edit', 'remove'];
 
-  constructor(private http: HttpClient, private service: TodoService) { }
+  constructor(private service: TodoService) { }
 
   ngOnInit(): void {
     this.getTodos();
