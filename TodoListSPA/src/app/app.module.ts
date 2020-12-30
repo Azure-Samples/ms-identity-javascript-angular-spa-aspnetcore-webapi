@@ -62,7 +62,10 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   };
 }
 
-// set your default interaction type here
+/**
+ * Set your default interaction type for MSALGuard here. If you have any
+ * additional scopes you want the user to consent upon login, add them here as well.
+ */
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { interactionType: InteractionType.Redirect };
 }
