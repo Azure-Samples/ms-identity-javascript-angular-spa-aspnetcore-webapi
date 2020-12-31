@@ -8,6 +8,11 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
+  it('should display welcome message', async () => {
+    await page.navigateTo();
+    expect(await page.getTitleText()).toEqual('angular11-sample-app app is running!');
+  });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);
